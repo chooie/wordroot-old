@@ -1,1 +1,1 @@
-@call build\scripts\run_jake -f build\scripts\build.jakefile.js %*
+@call build\scripts\run_jake_build -f build\scripts\build.jakefile.js %*
