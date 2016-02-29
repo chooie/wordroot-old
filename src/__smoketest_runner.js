@@ -7,7 +7,7 @@
 	"use strict";
 	var httpUtil = require("./__http_util.js");
 
-	var HOME_PAGE_MARKER = "automatopia home page";
+	var HOME_PAGE_MARKER = "wordroot home page";
 
 	exports.runTests = function(url, callback) {
 		checkMarker(url, HOME_PAGE_MARKER, function(foundMarker) {

@@ -20,35 +20,54 @@
 		var child = null;
 
 		beforeEach(function(done) {
-			var cmdLine = parseProcfile();
-			child = child_process.spawn(
-        cmdLine.command,
-        cmdLine.options,
-        { stdio: [ "pipe", "pipe", process.stderr ] }
-      );
+			prepareServer();
 
-			child.stdout.setEncoding("utf8");
-			child.stdout.on("data", function(chunk) {
-				if (chunk.trim().indexOf("Server started") !== -1) {
-					return done();
-				}
-			});
+			function prepareServer() {
+        runServerInChildProcess();
+        doneWhenServerIsReady();
+        clearChildProcessOnExit();
 
-			child.once("exit", function() {
-				child = null;
-			});
-		});
+        function runServerInChildProcess() {
+          var cmdLine = parseProcfile();
+          spawnChildProcessWithProcfileArgs();
+
+          function spawnChildProcessWithProcfileArgs() {
+            child = child_process.spawn(
+              cmdLine.command,
+              cmdLine.options,
+              { stdio: ["pipe", "pipe", process.stderr] }
+            );
+          }
+        }
+
+        function doneWhenServerIsReady() {
+          child.stdout.setEncoding("utf8");
+          child.stdout.on("data", function(chunk) {
+            if (serverHasStarted(chunk)) done();
+          });
+
+          function serverHasStarted(chunk) {
+            return chunk.trim().indexOf("Server started") !== -1;
+          }
+        }
+
+        function clearChildProcessOnExit() {
+          child.once("exit", function() {
+            child = null;
+          });
+        }
+      }
+    });
 
 		afterEach(function(done) {
-			if (child === null) {
-        return done();
-      }
+      clearChild();
 
-			child.once("exit", function() {
-				done();
-			});
-			child.kill();
-		});
+      function clearChild() {
+        if (!child) done();
+        child.once("exit", done);
+        child.kill();
+      }
+    });
 
 		it("passes smoke tests", function(done) {
 			smoketest.runTests(BASE_URL, function(success) {
@@ -60,15 +79,18 @@
 		function parseProcfile() {
 			var file = fs.readFileSync("Procfile", "utf8");
 			var web = procfile.parse(file).web;
-			web.options = web.options.map(function(option) {
-				if (option === "$PORT") {
-          return PORT;
-        } else {
-          return option;
-        }
-			});
-			return web;
-		}
-	});
+
+      web.options = replacePortOptionWithDefaultValue();
+
+      return web;
+
+      function replacePortOptionWithDefaultValue() {
+        return web.options.map(function(option) {
+          if (option === "$PORT") return PORT;
+          else return option;
+        });
+      }
+    }
+  });
 
 }());

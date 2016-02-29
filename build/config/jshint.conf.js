@@ -11,8 +11,8 @@
 	var universalOptions = {
     // No bitwise ops
     bitwise: true,
-    // Always use curly braces around blocks
-    curly: true,
+    // Don't need curly braces around one-line blocks
+    curly: false,
     // Only permit triple equals
     eqeqeq: true,
     // Always filter inherited properties out in `for in` loops
