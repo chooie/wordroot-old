@@ -4,7 +4,7 @@
   "use strict";
 
   var shell = require("shelljs");
-  var paths = require("../../config/paths.js");
+  var paths = require("../../config/paths");
 
   module.exports = function() {
     var startTime = Date.now();

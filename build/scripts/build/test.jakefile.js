@@ -3,11 +3,11 @@
 (function() {
   "use strict";
 
-  var mocha = require("../../util/mocha_runner.js");
-  var karma = require("../../util/karma_runner.js");
+  var mocha = require("../../util/mocha_runner");
+  var karma = require("../../util/karma_runner");
 
-  var paths = require("../../config/paths.js");
-  var browsers = require("../../config/tested_browsers.js");
+  var paths = require("../../config/paths");
+  var browsers = require("../../config/tested_browsers");
 
 
   var KARMA_CONFIG = "./build/config/karma.conf.js";

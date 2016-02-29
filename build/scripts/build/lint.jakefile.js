@@ -4,7 +4,7 @@
   "use strict";
 
   var jshint = require("simplebuild-jshint");
-  var jshintConfig = require("../../config/jshint.conf.js");
+  var jshintConfig = require("../../config/jshint.conf");
 
   module.exports = function() {
     var SHARED_JS = "src/shared/**/*.js";
