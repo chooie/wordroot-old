@@ -10,14 +10,14 @@
 
 	var shell = require("shelljs");
 	var jshint = require("simplebuild-jshint");
-	var mocha = require("../util/mocha_runner.js");
-	var karma = require("../util/karma_runner.js");
-	var browserify = require("../util/browserify_runner.js");
-	var version = require("../util/version_checker.js");
+	var mocha = require("../../util/mocha_runner.js");
+	var karma = require("../../util/karma_runner.js");
+	var browserify = require("../../util/browserify_runner.js");
+	var version = require("../../util/version_checker.js");
 
-	var browsers = require("../config/tested_browsers.js");
-	var jshintConfig = require("../config/jshint.conf.js");
-	var paths = require("../config/paths.js");
+	var browsers = require("../../config/tested_browsers.js");
+	var jshintConfig = require("../../config/jshint.conf.js");
+	var paths = require("../../config/paths.js");
 
 	var KARMA_CONFIG = "./build/config/karma.conf.js";
 	var MOCHA_CONFIG = {
@@ -155,7 +155,7 @@
 		console.log("Checking Node.js version: .");
 		version.check({
 			name: "Node",
-			expected: require("../../package.json").engines.node,
+			expected: require("../../../package.json").engines.node,
 			actual: process.version,
 			strict: strict
 		}, complete, fail);
