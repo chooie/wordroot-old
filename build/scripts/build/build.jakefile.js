@@ -5,45 +5,20 @@
 (function() {
 	"use strict";
 
-	var startTime = Date.now();
-
 	var shell = require("shelljs");
 	var browserify = require("../../util/browserify_runner.js");
 	var version = require("../../util/version_checker.js");
 
 	var paths = require("../../config/paths.js");
 
+  var generalTasks = require("./general.jakefile.js");
   var lintTasks = require("./lint.jakefile.js");
   var testTasks = require("./test.jakefile.js");
 
 	var strict = !process.env.loose;
 
-
-	//*** GENERAL
-
-	desc("Lint and test");
-	task("default", ["version", "lint", "test"], function() {
-		var elapsedSeconds = (Date.now() - startTime) / 1000;
-		console.log("\n\nBUILD OK  (" + elapsedSeconds.toFixed(2) + "s)");
-	});
-
-	desc("Start server (for manual testing)");
-	task("run", [ "build" ], function() {
-		console.log("Starting server. Press Ctrl-C to exit.");
-		jake.exec(
-      "node " + paths.distDir + "/run.js 5000",
-      { interactive: true },
-      complete
-    );
-	}, { async: true });
-
-	desc("Delete generated files");
-	task("clean", function() {
-		shell.rm("-rf", paths.generatedDir);
-	});
-
-
-	lintTasks(strict);
+  generalTasks();
+	lintTasks();
   testTasks(strict);
 
 	//*** BUILD
