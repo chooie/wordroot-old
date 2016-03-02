@@ -7,18 +7,14 @@
   var app = require("./app");
 
   describe("App", function() {
-    it("returns a word", function() {
-      var word = app.getWord();
-      assert.ok(word);
+    var container;
+    beforeEach(function() {
+      container = document.createElement("div");
+    });
 
-      describe("The word", function() {
-        it("has a meaning", function() {
-          assert.ok(word.meaning);
-        });
-        it("has roots", function() {
-          assert.ok(word.roots.length > 0);
-        });
-      });
+    it("populates title", function() {
+      app.run(container);
+      assert.ok(container.toString().indexOf("autobiography" > 0));
     });
   });
 
