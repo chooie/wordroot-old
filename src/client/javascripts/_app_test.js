@@ -13,8 +13,13 @@
     });
 
     it("populates title", function() {
-      app.run(container);
+      app.populateTitle(container);
       assert.ok(container.toString().indexOf("autobiography" > 0));
+    });
+
+    it("populates meaning", function() {
+      app.populateMeaning(container);
+      assert.ok(container.toString().indexOf("the story"));
     });
   });
 

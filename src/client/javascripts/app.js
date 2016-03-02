@@ -11,25 +11,45 @@
 
   function setUpPage() {
     var app = document.getElementById("app");
-    populateTitleDiv(app);
+    populateTitle(app);
+    populateMeaning(app);
   }
 
-  function populateTitleDiv(container) {
-    var title = document.createElement("div");
-    createHeader(title);
-    container.appendChild(title);
+  function populateTitle(container) {
+    putElement(container, "div" , function(element) {
+      createHeader(element);
+    });
+
+    function createHeader(container) {
+      putElement(container, "h1", function(element) {
+        var _word = word.getWord();
+        element.innerHTML = _word.word;
+      });
+    }
   }
 
-  function createHeader(container) {
-    var header = document.createElement("h1");
-    var _word = word.getWord();
-    header.innerHTML = _word.word;
-    container.appendChild(header);
-    return header;
+  function populateMeaning(container) {
+    putElement(container, "div", function(element) {
+      createMeaning(element);
+    });
+
+    function createMeaning(container) {
+      putElement(container, "p", function(element) {
+        var _word = word.getWord();
+        element.innerHTML = _word.meaning;
+      });
+    }
   }
 
-  module.exports.run = function(container) {
-    populateTitleDiv(container);
+  function putElement(container, elementType, callback) {
+    var element = document.createElement(elementType);
+    callback(element);
+    container.appendChild(element);
+  }
+
+  module.exports = {
+    populateTitle: populateTitle,
+    populateMeaning: populateMeaning
   };
 
 }());
