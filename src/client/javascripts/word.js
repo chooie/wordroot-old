@@ -11,20 +11,29 @@
       meaning: "the story that someone writes about their own life",
       roots: [
         {
-          word: "autos",
-          meaning: "self",
-          language: "Greek"
+          part: "auto",
+          root: {
+            word: "autos",
+            meaning: "self",
+            language: "Greek"
+          }
         },
         {
-          word: "bios",
-          meaning: "life",
-          language: "Greek"
+          part: "bio",
+          root: {
+            word: "bios",
+            meaning: "life",
+            language: "Greek"
+          }
         },
         {
-          word: "graphein",
-          meaning: "to write",
-          language: "Greek"
-        }
+          part: "graphy",
+          root: {
+            word: "graphein",
+            meaning: "to write",
+            language: "Greek"
+          }
+        },
       ]
     };
   }

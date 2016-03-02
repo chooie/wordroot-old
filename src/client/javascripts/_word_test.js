@@ -8,15 +8,24 @@
 
   describe("Word", function() {
     it("returns a word", function() {
-      var _word = word.getWord();
-      assert.ok(_word);
+      var wordObj = word.getWord();
+      assert.ok(wordObj);
 
-      describe("The _word", function() {
+      describe("The word", function() {
         it("has a meaning", function() {
-          assert.ok(_word.meaning);
+          assert.ok(wordObj.meaning);
         });
         it("has roots", function() {
-          assert.ok(_word.roots.length > 0);
+          var numOfRoots = wordObj.roots.length;
+          assert.ok(numOfRoots > 0);
+        });
+        it("has parts that make up word", function() {
+          var word = wordObj.word;
+          var accumWord = "";
+          wordObj.roots.forEach(function(root) {
+            accumWord += root.part;
+          });
+          assert.equal(accumWord, word, "parts make up word");
         });
       });
     });
