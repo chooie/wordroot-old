@@ -12,14 +12,16 @@
       container = document.createElement("div");
     });
 
-    it("populates title", function() {
+    it("populates title composed of root parts", function() {
       app.populateTitle(container);
-      assert.ok(container.toString().indexOf("autobiography" > 0));
+      var titleStr = container.innerHTML;
+      assert.ok(titleStr.indexOf("autobiography") > -1);
     });
 
     it("populates meaning", function() {
       app.populateMeaning(container);
-      assert.ok(container.toString().indexOf("the story"));
+      var meaningStr = container.innerHTML;
+      assert.ok(meaningStr.indexOf("the story") > -1);
     });
   });
 
