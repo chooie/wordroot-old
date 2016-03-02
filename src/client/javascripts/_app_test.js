@@ -12,15 +12,20 @@
       container = document.createElement("div");
     });
 
-    it("populates title", function() {
+    it("populates title composed of root parts", function() {
       app.populateTitle(container);
-      assert.ok(container.toString().indexOf("autobiography" > 0));
+      assertStringInElement(container, "autobiography");
     });
 
     it("populates meaning", function() {
       app.populateMeaning(container);
-      assert.ok(container.toString().indexOf("the story"));
+      assertStringInElement(container, "the story");
     });
   });
+
+  function assertStringInElement(element, string) {
+    var elementStr = element.innerHTML;
+    assert.ok(elementStr.indexOf(string) > -1);
+  }
 
 }());

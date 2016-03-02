@@ -15,10 +15,12 @@
         it("has a meaning", function() {
           assert.ok(wordObj.meaning);
         });
+
         it("has roots", function() {
           var numOfRoots = wordObj.roots.length;
           assert.ok(numOfRoots > 0);
         });
+
         it("has parts that make up word", function() {
           var word = wordObj.word;
           var accumWord = "";
