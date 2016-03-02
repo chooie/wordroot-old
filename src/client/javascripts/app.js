@@ -6,7 +6,27 @@
   module.exports.getWord = getWord;
 
   function getWord() {
-    return "someword";
+    return {
+      word: "autobiography",
+      meaning: "the story that someone writes about their own life",
+      roots: [
+        {
+          word: "autos",
+          meaning: "self",
+          language: "Greek"
+        },
+        {
+          word: "bios",
+          meaning: "life",
+          language: "Greek"
+        },
+        {
+          word: "graphein",
+          meaning: "to write",
+          language: "Greek"
+        }
+      ]
+    };
   }
 
 }());
