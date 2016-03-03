@@ -3,7 +3,8 @@
 (function() {
   "use strict";
 
-  var word = require("./word");
+  var wordUtil = require("./word");
+  var Q = require("../../shared/promise");
 
   document.addEventListener("DOMContentLoaded", function() {
     setUpPage();
@@ -11,40 +12,50 @@
 
   function setUpPage() {
     var app = document.getElementById("app");
-    populateTitle(app);
-    populateMeaning(app);
+    var container = document.createElement("div");
+    Q.all([
+      populateTitle(container),
+      populateMeaning(container)
+    ])
+    .then(function() {
+      app.appendChild(container);
+    });
   }
 
   function populateTitle(container) {
-    putElement(container, "div" , function(element) {
-      createHeader(element);
-    });
+    return Q.fcall(function() {
+      var div = putElement(container, "div");
+      createHeader(div);
 
-    function createHeader(container) {
-      putElement(container, "h1", function(element) {
-        var _word = word.getWord();
-        element.innerHTML = _word.word;
-      });
-    }
+      function createHeader(container) {
+        var header = putElement(container, "h1");
+        wordUtil.getWord()
+        .then(function(word) {
+          header.innerHTML = word.word;
+        });
+      }
+    });
   }
 
   function populateMeaning(container) {
-    putElement(container, "div", function(element) {
-      createMeaning(element);
-    });
+    return Q.fcall(function() {
+      var div = putElement(container, "div");
+      createMeaning(div);
 
-    function createMeaning(container) {
-      putElement(container, "p", function(element) {
-        var _word = word.getWord();
-        element.innerHTML = _word.meaning;
-      });
-    }
+      function createMeaning(container) {
+        var p = putElement(container, "p");
+        wordUtil.getWord()
+        .then(function(word) {
+          p.innerHTML = word.meaning;
+        });
+      }
+    });
   }
 
-  function putElement(container, elementType, callback) {
+  function putElement(container, elementType) {
     var element = document.createElement(elementType);
-    callback(element);
     container.appendChild(element);
+    return element;
   }
 
   module.exports = {

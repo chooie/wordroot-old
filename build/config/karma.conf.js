@@ -18,7 +18,8 @@
 	    files: [
 	      'src/client/**/*.js',
         'src/shared/**/*.js',
-        'vendor/chai-2.1.0.js'
+        'vendor/chai-2.1.0.js',
+				'vendor/q-1.4.1.js'
 	    ],
 
 
@@ -34,8 +35,9 @@
 	    preprocessors: {
         'src/client/**/*.js': ['commonjs'],
         'src/shared/**/*.js': ['commonjs'],
-        'vendor/chai-2.1.0.js': ['commonjs']
-	    },
+        'vendor/chai-2.1.0.js': ['commonjs'],
+				'vendor/q-1.4.1.js': ['commonjs']
+			},
 
 
 	    // test results reporter to use

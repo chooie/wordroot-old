@@ -3,10 +3,12 @@
 (function() {
   "use strict";
 
+  var Q = require("../../shared/promise");
+
   module.exports.getWord = getWord;
 
   function getWord() {
-    return {
+    var word = {
       word: "autobiography",
       meaning: "the story that someone writes about their own life",
       roots: [
@@ -36,6 +38,14 @@
         },
       ]
     };
+
+    return Q.fcall(function() {
+      var deferred = Q.defer();
+      setTimeout(function() {
+        deferred.resolve(word);
+      }, 0);
+      return deferred.promise;
+    });
   }
 
 }());
