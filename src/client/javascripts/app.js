@@ -3,8 +3,10 @@
 (function() {
   "use strict";
 
-  var wordUtil = require("./word");
   var Q = require("../../shared/promise");
+
+  var wordUtil = require("./word");
+  var constants = require("./constants");
 
   document.addEventListener("DOMContentLoaded", function() {
     setUpPage();
@@ -19,7 +21,16 @@
     ])
     .then(function() {
       app.appendChild(container);
+      removeLoading();
     });
+  }
+
+  function removeLoading() {
+    var loadingClass = constants.cssClasses.loading;
+    var loadingElems = document.getElementsByClassName(loadingClass);
+    for (var i = 0; i < loadingElems.length; i += 1) {
+      loadingElems[i].classList.remove(loadingClass);
+    }
   }
 
   function populateTitle(container) {
@@ -60,7 +71,8 @@
 
   module.exports = {
     populateTitle: populateTitle,
-    populateMeaning: populateMeaning
+    populateMeaning: populateMeaning,
+    removeLoading: removeLoading
   };
 
 }());

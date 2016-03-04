@@ -16,13 +16,22 @@
       shell.rm("-rf", paths.distDir);
     });
 
-    task("buildClient", [ paths.clientDistDir, "bundleClientJs" ], function() {
-      console.log("Copying client code: .");
-      shell.cp(
-        paths.clientDir + "/*.html", paths.clientDir + "/*.css",
-        paths.clientDistDir
-      );
-    });
+    task("buildClient",
+      [ paths.clientDistDir, "bundleClientJs" ],
+      function() {
+        console.log("Copying client code: .");
+        shell.cp(
+          paths.clientDir + "/*.html", paths.clientDir + "/*.css",
+          paths.clientDistDir
+        );
+
+        shell.cp(
+          "-R",
+          paths.clientContentDir,
+          paths.clientDistDir
+        );
+      }
+    );
 
     task("bundleClientJs", [ paths.clientDistDir ], function() {
       console.log("Bundling browser code with Browserify: .");

@@ -13,7 +13,8 @@
 		clientDistDir: "generated/dist/client",
 
 		clientDir: "src/client",
-		clientEntryPoint: "src/client/javascripts/app.js",
+    clientContentDir: "src/client/content",
+    clientEntryPoint: "src/client/javascripts/app.js",
 		clientDistBundle: "generated/dist/client/bundle.js",
 
 		serverDir: "src/server",
