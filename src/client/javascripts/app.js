@@ -15,13 +15,27 @@
   function setUpPage() {
     var app = document.getElementById("app");
     var container = document.createElement("div");
+    var before = Date.now();
     Q.all([
       populateTitle(container),
       populateMeaning(container)
     ])
     .then(function() {
       app.appendChild(container);
-      removeLoading();
+      var after = Date.now();
+
+      var actualLoadingTime = calculateLoadingTime(before, after);
+
+      setTimeout(function() {
+        removeLoading();
+      }, actualLoadingTime);
+
+      function calculateLoadingTime(before, after) {
+        var minLoadingTime = constants.misc.loading;
+        var timeTakenToLoadAll = after - before;
+        var actualLoadingTime = minLoadingTime - timeTakenToLoadAll;
+        return actualLoadingTime < 0 ? 0 : actualLoadingTime;
+      }
     });
   }
 
