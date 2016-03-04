@@ -9,11 +9,12 @@
   var constants = require("./constants");
 
   document.addEventListener("DOMContentLoaded", function() {
-    setUpPage();
+    var app = document.getElementById("app");
+    setUpPage(app);
   });
 
-  function setUpPage() {
-    var app = document.getElementById("app");
+  function setUpPage(app) {
+    if (!app) throw Error("No app element in page");
     var container = document.createElement("div");
     var before = Date.now();
     Q.all([
@@ -23,7 +24,6 @@
     .then(function() {
       app.appendChild(container);
       var after = Date.now();
-
       var actualLoadingTime = calculateLoadingTime(before, after);
 
       setTimeout(function() {
