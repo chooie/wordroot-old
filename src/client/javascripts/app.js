@@ -4,11 +4,13 @@
   "use strict";
 
   var Q = require("../../shared/promise");
+  var classList = require("../../../vendor/classList");
 
   var wordUtil = require("./word");
   var constants = require("./constants");
 
   document.addEventListener("DOMContentLoaded", function() {
+    classList.shim();
     var app = document.getElementById("app");
     if (app) {
       setUpPage(app);
