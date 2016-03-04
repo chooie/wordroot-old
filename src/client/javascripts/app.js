@@ -10,7 +10,9 @@
 
   document.addEventListener("DOMContentLoaded", function() {
     var app = document.getElementById("app");
-    setUpPage(app);
+    if (app) {
+      setUpPage(app);
+    }
   });
 
   function setUpPage(app) {
