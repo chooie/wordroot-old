@@ -5,10 +5,10 @@
 
   var Q = require("../../../shared/promise");
 
-  module.exports.getWord = getWord;
+  module.exports.make = make;
 
-  function getWord() {
-    var word = {
+  function Word() {
+    this.info = {
       word: "autobiography",
       meaning: "the story that someone writes about their own life",
       roots: [
@@ -38,10 +38,20 @@
         },
       ]
     };
+    this.getRootParts = function() {
+      var parts = [];
+      this.info.roots.forEach(function(root) {
+        parts.push(root.part);
+      });
+      return parts;
+    };
+  }
 
+  function make() {
     return Q.fcall(function() {
       var deferred = Q.defer();
       // TODO: Replace fake async call for real implementation
+      var word = new Word();
       setTimeout(function() {
         deferred.resolve(word);
       }, 0);

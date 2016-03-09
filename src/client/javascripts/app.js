@@ -16,15 +16,18 @@
   function setUpPage(appContainer) {
     if (!appContainer) throw Error("No app element in page");
     var startTime = Date.now();
-    wordUtil.getWord()
+    wordUtil.make()
     .then(fillWordPage.bind(null, startTime, appContainer));
   }
 
-  function fillWordPage(startTime, appContainer, word) {
+  function fillWordPage(startTime, appContainer, wordObj) {
     var container = document.createElement("div");
     Q.all([
-      wordPage.populateTitle(container, word.word),
-      wordPage.populateMeaning(container, word.meaning)
+      wordPage.populateTitle(container, wordObj.info.word),
+      wordPage.populateCompositeRootPartsTitle(
+        container, wordObj.getRootParts()
+      ),
+      wordPage.populateMeaning(container, wordObj.info.meaning)
     ])
     .then(function() {
       appContainer.appendChild(container);

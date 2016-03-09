@@ -20,12 +20,23 @@
       util.removeElement(container);
     });
 
-    it("populates title composed of root parts", function(done) {
+    it("populates title", function(done) {
       var TITLE = "DEFAULT TITLE";
       wordPage.populateTitle(container, TITLE)
       .then(function() {
         assertStringInElement(container, TITLE);
         done();
+      });
+    });
+
+    it("populates title composed of root parts", function(done) {
+      var roots = [ "some", "root", "parts" ];
+      wordPage.populateCompositeRootPartsTitle(container, roots)
+      .then(function() {
+        roots.forEach(function(root) {
+          assertStringInElement(container, root);
+          done();
+        });
       });
     });
 

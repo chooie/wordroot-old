@@ -17,6 +17,20 @@
     });
   }
 
+  function populateCompositeRootPartsTitle(container, roots) {
+    return Q.fcall(function() {
+      var div = putElement(container, "div");
+      roots.forEach(function(root) {
+        addRoot(div, root);
+      });
+    });
+
+    function addRoot(container, root) {
+      var rootElem = putElement(container, "p");
+      rootElem.innerHTML = root;
+    }
+  }
+
   function populateMeaning(container, meaning) {
     return Q.fcall(function() {
       var div = putElement(container, "div");
@@ -38,6 +52,7 @@
   module.exports = {
     populateTitle: populateTitle,
     populateMeaning: populateMeaning,
+    populateCompositeRootPartsTitle: populateCompositeRootPartsTitle
   };
 
 }());

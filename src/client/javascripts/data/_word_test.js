@@ -10,7 +10,7 @@
     var wordObj;
 
     beforeEach(function(done) {
-      word.getWord()
+      word.make()
       .then(function(word) {
         wordObj = word;
         done();
@@ -18,19 +18,19 @@
     });
 
     it("has a meaning", function() {
-      assert.ok(wordObj.meaning);
+      assert.ok(wordObj.info.meaning);
     });
 
     it("has roots", function() {
-      var numOfRoots = wordObj.roots.length;
+      var numOfRoots = wordObj.info.roots.length;
       assert.ok(numOfRoots > 0);
     });
 
     it("has parts that make up word", function() {
-      var word = wordObj.word;
+      var word = wordObj.info.word;
       var accumWord = "";
-      wordObj.roots.forEach(function(root) {
-        accumWord += root.part;
+      wordObj.getRootParts().forEach(function(rootPart) {
+        accumWord += rootPart;
       });
       assert.equal(accumWord, word, "parts make up word");
     });
