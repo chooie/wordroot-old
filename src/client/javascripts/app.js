@@ -6,91 +6,50 @@
   var Q = require("../../shared/promise");
   var classList = require("../../../vendor/classList");
 
-  var wordUtil = require("./word");
+  var wordUtil = require("./data/word");
+  var wordPage = require("./ui/wordPage");
+  var uiUtil = require("./ui/util");
   var constants = require("./constants");
 
-  document.addEventListener("DOMContentLoaded", function() {
-    classList.shim();
-    var app = document.getElementById("app");
-    if (app) {
-      setUpPage(app);
-    }
-  });
+  classList.shim();
 
-  function setUpPage(app) {
-    if (!app) throw Error("No app element in page");
+  function setUpPage(appContainer) {
+    if (!appContainer) throw Error("No app element in page");
+    var startTime = Date.now();
+    wordUtil.getWord()
+    .then(fillWordPage.bind(null, startTime, appContainer));
+  }
+
+  function fillWordPage(startTime, appContainer, word) {
     var container = document.createElement("div");
-    var before = Date.now();
-    Q.all([
-      populateTitle(container),
-      populateMeaning(container)
-    ])
-    .then(function() {
-      app.appendChild(container);
-      var after = Date.now();
-      var actualLoadingTime = calculateLoadingTime(before, after);
+    wordPage.populateTitle(container, word.word);
+    wordPage.populateMeaning(container, word.meaning);
 
-      setTimeout(function() {
-        removeLoading();
-      }, actualLoadingTime);
+    appContainer.appendChild(container);
+    var endTime = Date.now();
+    var actualLoadingTime = calculateLoadingTime(startTime, endTime);
 
-      function calculateLoadingTime(before, after) {
-        var minLoadingTime = constants.misc.loading;
-        var timeTakenToLoadAll = after - before;
-        var actualLoadingTime = minLoadingTime - timeTakenToLoadAll;
-        return actualLoadingTime < 0 ? 0 : actualLoadingTime;
-      }
-    });
+    callAfterDelay(actualLoadingTime, uiUtil.removeLoadingClass);
   }
 
-  function removeLoading() {
-    var loadingClass = constants.cssClasses.loading;
-    var loadingElems = document.getElementsByClassName(loadingClass);
-    for (var i = 0; i < loadingElems.length; i += 1) {
-      loadingElems[i].classList.remove(loadingClass);
-    }
+  function calculateLoadingTime(before, after) {
+    var minLoadingTime = constants.misc.loading;
+    var timeTakenToLoadAll = after - before;
+    var actualLoadingTime = minLoadingTime - timeTakenToLoadAll;
+    return actualLoadingTime < 0 ? 0 : actualLoadingTime;
   }
 
-  function populateTitle(container) {
-    return Q.fcall(function() {
-      var div = putElement(container, "div");
-      createHeader(div);
-
-      function createHeader(container) {
-        var header = putElement(container, "h1");
-        wordUtil.getWord()
-        .then(function(word) {
-          header.innerHTML = word.word;
-        });
-      }
-    });
-  }
-
-  function populateMeaning(container) {
-    return Q.fcall(function() {
-      var div = putElement(container, "div");
-      createMeaning(div);
-
-      function createMeaning(container) {
-        var p = putElement(container, "p");
-        wordUtil.getWord()
-        .then(function(word) {
-          p.innerHTML = word.meaning;
-        });
-      }
-    });
-  }
-
-  function putElement(container, elementType) {
-    var element = document.createElement(elementType);
-    container.appendChild(element);
-    return element;
+  function callAfterDelay(delayTime, callback) {
+    var deferred = Q.defer();
+    setTimeout(function() {
+      callback();
+      deferred.resolve();
+    }, delayTime);
+    return deferred.promise;
   }
 
   module.exports = {
-    populateTitle: populateTitle,
-    populateMeaning: populateMeaning,
-    removeLoading: removeLoading
+    setUpPage: setUpPage
   };
 
 }());

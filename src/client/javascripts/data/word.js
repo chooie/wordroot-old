@@ -3,7 +3,7 @@
 (function() {
   "use strict";
 
-  var Q = require("../../shared/promise");
+  var Q = require("../../../shared/promise");
 
   module.exports.getWord = getWord;
 
@@ -41,6 +41,7 @@
 
     return Q.fcall(function() {
       var deferred = Q.defer();
+      // TODO: Replace fake async call for real implementation
       setTimeout(function() {
         deferred.resolve(word);
       }, 0);

@@ -9,7 +9,8 @@ exports.bundle = function(config, success, failure) {
 	var b = browserify(config.options);
 
 	b.add(path.resolve(config.entry));
-	b.bundle(function(err, bundle) {
+  b.require(path.resolve(config.require), { expose: "WordRoot" });
+  b.bundle(function(err, bundle) {
 		if (err) {
 			return failure(err);
 		}
