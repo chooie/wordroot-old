@@ -5,13 +5,15 @@
 
   var Q = require("../../../shared/promise");
 
+  var util = require("./util");
+
   function populateTitle(container, title) {
     return Q.fcall(function() {
-      var div = putElement(container, "div");
+      var div = util.putElement(container, "div");
       createHeader(div);
 
       function createHeader(container) {
-        var header = putElement(container, "h1");
+        var header = util.putElement(container, "h1");
         header.innerHTML = title;
       }
     });
@@ -19,34 +21,28 @@
 
   function populateCompositeRootPartsTitle(container, roots) {
     return Q.fcall(function() {
-      var div = putElement(container, "div");
+      var div = util.putElement(container, "div");
       roots.forEach(function(root) {
         addRoot(div, root);
       });
     });
 
     function addRoot(container, root) {
-      var rootElem = putElement(container, "p");
+      var rootElem = util.putElement(container, "p");
       rootElem.innerHTML = root;
     }
   }
 
   function populateMeaning(container, meaning) {
     return Q.fcall(function() {
-      var div = putElement(container, "div");
+      var div = util.putElement(container, "div");
       createMeaning(div);
 
       function createMeaning(container) {
-        var p = putElement(container, "p");
+        var p = util.putElement(container, "p");
         p.innerHTML = meaning;
       }
     });
-  }
-
-  function putElement(container, elementType) {
-    var element = document.createElement(elementType);
-    container.appendChild(element);
-    return element;
   }
 
   module.exports = {

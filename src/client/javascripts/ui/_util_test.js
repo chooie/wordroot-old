@@ -20,6 +20,26 @@
       util.removeElement(container);
     });
 
+    it("adds elements", function() {
+      util.putElement(container, "div");
+      util.putElement(container, "h1");
+      assert.ok(container.innerHTML === "<div></div><h1></h1>");
+    });
+
+    it("removes elements", function() {
+      var elem = util.putElement(container, "div");
+      util.removeElement(elem);
+      checkContainerIsEmpty(container);
+    });
+
+    it("adds elements with classes", function() {
+      var classes = [ "class1", "class2", "class3" ];
+      var elem = util.putElement(container, "div", classes);
+      for (var i = 0; i < elem.classList.length; i += 1) {
+        assert.equal(elem.classList[i], classes[i]);
+      }
+    });
+
     it("hides loading elements", function() {
       var loadingClass = constants.cssClasses.loading;
       createLoadingElement();
@@ -36,5 +56,9 @@
       }
     });
   });
+
+  function checkContainerIsEmpty(container) {
+    assert.notOk(container.innerHTML);
+  }
 
 }());

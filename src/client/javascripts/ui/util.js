@@ -5,6 +5,21 @@
 
   var constants = require("../constants");
 
+  function putElement(container, elementType, classes) {
+    var element = document.createElement(elementType);
+    if (classes) {
+      classes.forEach(function(_class) {
+        element.classList.add(_class);
+      });
+    }
+    container.appendChild(element);
+    return element;
+  }
+
+  function removeElement(element) {
+    element.parentNode.removeChild(element);
+  }
+
   function removeLoadingClass() {
     var loadingClass = constants.cssClasses.loading;
     var loadingElems = document.getElementsByClassName(loadingClass);
@@ -13,13 +28,10 @@
     }
   }
 
-  function removeElement(element) {
-    element.parentNode.removeChild(element);
-  }
-
   module.exports = {
+    putElement: putElement,
+    removeElement: removeElement,
     removeLoadingClass: removeLoadingClass,
-    removeElement: removeElement
   };
 
 }());
