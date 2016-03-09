@@ -4,7 +4,6 @@
   "use strict";
 
   var shell = require("shelljs");
-  var browserify = require("../../util/browserify_runner");
 
   var paths = require("../../config/paths");
 
@@ -35,14 +34,11 @@
 
     task("bundleClientJs", [ paths.clientDistDir ], function() {
       console.log("Bundling browser code with Browserify: .");
-      browserify.bundle({
-        entry: paths.clientEntryPoint,
-        outfile: paths.clientDistBundle,
-        options: {
-          standalone: "example",
-          debug: true
-        }
-      }, complete, fail);
+      jake.exec(
+        "node node_modules/browserify/bin/cmd.js -r ./" +
+        paths.clientEntryPoint + ":WordRoot -o " + paths.clientDistBundle,
+        { interactive: true },
+        complete);
     }, { async: true });
 
     task("buildServer", function() {

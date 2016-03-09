@@ -3,7 +3,7 @@
 (function() {
   "use strict";
 
-  var assert = require("../../shared/assert");
+  var assert = require("../../../shared/assert");
   var word = require("./word");
 
   describe("Word", function() {
