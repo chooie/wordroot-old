@@ -11,7 +11,7 @@
 
 .nav-title {
   color: #80D8FF;
-  font-size: 100px;
+  font-size: 48px;
 }
 
 .nav-title:hover {
@@ -44,12 +44,12 @@
 
 .loading-icon .text {
   display: block;
-  font-size: 6em;
+  font-size: 48px;
 }
 
 .loading-icon .fa {
   display: block;
-  font-size: 6em;
+  font-size: 48px;
 }
 
 .hide {
