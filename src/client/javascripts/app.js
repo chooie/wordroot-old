@@ -22,21 +22,22 @@
 
   function fillWordPage(startTime, appContainer, word) {
     var container = document.createElement("div");
-    wordPage.populateTitle(container, word.word);
-    wordPage.populateMeaning(container, word.meaning);
-
-    appContainer.appendChild(container);
-    var endTime = Date.now();
-    var actualLoadingTime = calculateLoadingTime(startTime, endTime);
-
-    callAfterDelay(actualLoadingTime, uiUtil.removeLoadingClass);
+    Q.all([
+      wordPage.populateTitle(container, word.word),
+      wordPage.populateMeaning(container, word.meaning)
+    ])
+    .then(function() {
+      appContainer.appendChild(container);
+      var delay = calculateTimeToDelay(startTime, Date.now());
+      callAfterDelay(delay, uiUtil.removeLoadingClass);
+    });
   }
 
-  function calculateLoadingTime(before, after) {
-    var minLoadingTime = constants.misc.loading;
-    var timeTakenToLoadAll = after - before;
-    var actualLoadingTime = minLoadingTime - timeTakenToLoadAll;
-    return actualLoadingTime < 0 ? 0 : actualLoadingTime;
+  function calculateTimeToDelay(before, after) {
+    var minDelayTime = constants.misc.loading;
+    var elapsedTime = after - before;
+    var actualDelayTime = minDelayTime - elapsedTime;
+    return actualDelayTime < 0 ? 0 : actualDelayTime;
   }
 
   function callAfterDelay(delayTime, callback) {
