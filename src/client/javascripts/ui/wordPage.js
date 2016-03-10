@@ -25,7 +25,8 @@
       var rootPartTitle = constants.cssClasses.rootPartTitle;
       var containerClass = constants.cssClasses.container;
       var classes = [ containerClass, rootPartTitle ];
-      var div = util.putElement(container, "div", classes);
+      var options = { classes: classes };
+      var div = util.putElement(container, "div", options);
       rootParts.forEach(function(rootPart, i) {
         addRootPart(div, rootPart, i);
       });
@@ -39,7 +40,8 @@
       function addRootPart(container, root, index) {
         var COLORS = ["blue", "green", "red"];
         var rootClass = constants.cssClasses.rootPart;
-        var rootElem = util.putElement(container, "p", [rootClass]);
+        var options = { classes: [ rootClass ] };
+        var rootElem = util.putElement(container, "p", options);
         rootElem.style.color = COLORS[index % COLORS.length];
         rootElem.innerHTML = root;
       }
@@ -51,7 +53,7 @@
       var containerClass = constants.cssClasses.container;
       var meaningClass = constants.cssClasses.meaning;
       var classes = [ containerClass, meaningClass ];
-      var div = util.putElement(container, "div", classes);
+      var div = util.putElement(container, "div", { classes: classes });
       createMeaning(div);
 
       function createMeaning(container) {
@@ -66,7 +68,7 @@
       var containerClass = constants.cssClasses.container;
       var rootClass = "root-info";
       var classes = [ containerClass, rootClass ];
-      var div = util.putElement(container, "div", classes);
+      var div = util.putElement(container, "div", { classes: classes });
 
       createRootInfo(div);
 

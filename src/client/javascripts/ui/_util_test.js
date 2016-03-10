@@ -34,7 +34,8 @@
 
     it("adds elements with classes", function() {
       var classes = [ "class1", "class2", "class3" ];
-      var elem = util.putElement(container, "div", classes);
+      var options = { classes: classes };
+      var elem = util.putElement(container, "div", options);
       for (var i = 0; i < elem.classList.length; i += 1) {
         assert.equal(elem.classList[i], classes[i]);
       }

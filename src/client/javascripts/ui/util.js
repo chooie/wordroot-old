@@ -5,18 +5,27 @@
 
   var constants = require("../constants");
 
-  function putElement(container, elementType, classes) {
+  function putElement(container, elementType, options) {
+    options = options || {};
+    checkOptions(options);
     var element = document.createElement(elementType);
-    if (classes) {
-      if (!Array.isArray(classes)) {
+
+    if (options.classes) {
+      if (!Array.isArray(options.classes)) {
         throw new Error("Classes must be passed as an array");
       }
-      classes.forEach(function(_class) {
+      options.classes.forEach(function(_class) {
         element.classList.add(_class);
       });
     }
     container.appendChild(element);
     return element;
+
+    function checkOptions(options) {
+      if (typeof options !== "object" || Array.isArray(options)) {
+        throw new Error("Options must be passed as an object");
+      }
+    }
   }
 
   function removeElement(element) {
