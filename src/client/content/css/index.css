@@ -63,6 +63,8 @@
 .root-part-title {
   text-align: center;
   font-size: 32px;
+  background: #FFE0B2;
+  border-bottom: 3px solid #FF9800;
 }
 
 .root-part {
@@ -80,4 +82,10 @@
 
 .root-part:nth-of-type(odd) {
   border-bottom: 1px solid;
+}
+
+.meaning {
+  text-align: center;
+  background: #C8E6C9;
+  border-bottom: 3px solid #4CAF50;
 }

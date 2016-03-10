@@ -23,7 +23,9 @@
   function populateCompositeRootPartsTitle(container, roots) {
     return Q.fcall(function() {
       var rootPartTitle = constants.cssClasses.rootPartTitle;
-      var div = util.putElement(container, "div", [ rootPartTitle ]);
+      var containerClass = constants.cssClasses.container;
+      var classes = [ containerClass, rootPartTitle ];
+      var div = util.putElement(container, "div", classes);
       roots.forEach(function(root, i) {
         addRoot(div, root, i);
       });
@@ -40,7 +42,10 @@
 
   function populateMeaning(container, meaning) {
     return Q.fcall(function() {
-      var div = util.putElement(container, "div");
+      var containerClass = constants.cssClasses.container;
+      var meaningClass = constants.cssClasses.meaning;
+      var classes = [ containerClass, meaningClass ];
+      var div = util.putElement(container, "div", classes);
       createMeaning(div);
 
       function createMeaning(container) {

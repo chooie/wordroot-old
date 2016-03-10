@@ -18,7 +18,10 @@
     });
 
     it("has a meaning", function() {
-      assert.ok(wordObj.info.meaning);
+      assert.equal(
+        wordObj.getMeaning(),
+        "The story that someone writes about their own life"
+      );
     });
 
     it("has roots", function() {

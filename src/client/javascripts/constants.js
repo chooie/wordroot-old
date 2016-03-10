@@ -8,12 +8,16 @@
   misc.loading = loadingTime;
 
   var cssClasses = {};
+  var container = "container";
   var loading = "loading";
   var rootPartTitle = "root-part-title";
   var rootPart = "root-part";
+  var meaning = "meaning";
+  cssClasses.container = container;
   cssClasses.loading = loading;
   cssClasses.rootPartTitle = rootPartTitle;
   cssClasses.rootPart = rootPart;
+  cssClasses.meaning = meaning;
 
   module.exports = {
     misc: misc,

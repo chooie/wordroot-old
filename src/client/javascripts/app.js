@@ -26,7 +26,7 @@
       wordPage.populateCompositeRootPartsTitle(
         container, wordObj.getRootParts()
       ),
-      wordPage.populateMeaning(container, wordObj.info.meaning)
+      wordPage.populateMeaning(container, wordObj.getMeaning())
     ])
     .then(function() {
       appContainer.appendChild(container);
