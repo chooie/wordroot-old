@@ -47,6 +47,14 @@
       }
     };
 
+    this.getRoots = function() {
+      var roots = [];
+      this.info.roots.forEach(function(root) {
+        roots.push(root.root);
+      });
+      return roots;
+    };
+
     this.getRootParts = function() {
       var parts = [];
       this.info.roots.forEach(function(root) {

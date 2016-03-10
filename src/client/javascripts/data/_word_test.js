@@ -25,8 +25,12 @@
     });
 
     it("has roots", function() {
-      var numOfRoots = wordObj.info.roots.length;
-      assert.ok(numOfRoots > 0);
+      var roots = wordObj.getRoots();
+      roots.forEach(function (root) {
+        assert.ok(root.word);
+        assert.ok(root.language);
+        assert.ok(root.meaning);
+      });
     });
 
     it("has parts that make up word", function() {
