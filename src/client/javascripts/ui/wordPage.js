@@ -24,8 +24,8 @@
     var deferred = Q.defer();
     try {
       var div = util.putElement(container, "div");
-      roots.forEach(function(root) {
-        addRoot(div, root);
+      roots.forEach(function(root, i) {
+        addRoot(div, root, i);
       });
       deferred.resolve();
     } catch(e) {
@@ -33,9 +33,11 @@
     }
     return deferred.promise;
 
-    function addRoot(container, root) {
+    function addRoot(container, root, index) {
+      var COLORS = ["blue", "green", "red"];
       var rootClass = constants.cssClasses.rootPart;
       var rootElem = util.putElement(container, "p", [rootClass]);
+      rootElem.style.color = COLORS[index % COLORS.length];
       rootElem.innerHTML = root;
     }
   }
