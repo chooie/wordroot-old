@@ -5,39 +5,12 @@
 
   var Q = require("../../../shared/promise");
 
+  var testWord = require("./testWord");
+
   module.exports.make = make;
 
   function Word() {
-    this.info = {
-      word: "autobiography",
-      meaning: "the story that someone writes about their own life",
-      roots: [
-        {
-          part: "auto",
-          root: {
-            word: "autos",
-            meaning: "self",
-            language: "Greek"
-          }
-        },
-        {
-          part: "bio",
-          root: {
-            word: "bios",
-            meaning: "life",
-            language: "Greek"
-          }
-        },
-        {
-          part: "graphy",
-          root: {
-            word: "graphein",
-            meaning: "to write",
-            language: "Greek"
-          }
-        },
-      ]
-    };
+    this.info = testWord;
     this.getMeaning = function() {
       var meaning = this.info.meaning;
       return capitalizeFirstLetter(meaning);
