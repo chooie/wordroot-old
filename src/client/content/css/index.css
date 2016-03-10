@@ -33,6 +33,10 @@
   background: #0091EA;
 }
 
+.container {
+  padding: 5px;
+}
+
 .loading-icon {
   position: relative;
   text-align: center;
@@ -59,7 +63,6 @@
 .root-part-title {
   text-align: center;
   font-size: 32px;
-  padding: 5px 0;
 }
 
 .root-part {

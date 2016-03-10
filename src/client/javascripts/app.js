@@ -23,7 +23,6 @@
   function fillWordPage(startTime, appContainer, wordObj) {
     var container = document.createElement("div");
     Q.all([
-      wordPage.populateTitle(container, wordObj.info.word),
       wordPage.populateCompositeRootPartsTitle(
         container, wordObj.getRootParts()
       ),
