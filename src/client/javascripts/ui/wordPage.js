@@ -23,7 +23,7 @@
   function populateCompositeRootPartsTitle(container, roots) {
     var deferred = Q.defer();
     try {
-      var div = util.putElement(container, "div");
+      var div = util.putElement(container, "div", [ "root-part-title" ]);
       roots.forEach(function(root, i) {
         addRoot(div, root, i);
       });

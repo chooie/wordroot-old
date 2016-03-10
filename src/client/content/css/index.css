@@ -56,12 +56,19 @@
   display: none;
 }
 
+.root-part-title {
+  text-align: center;
+  font-size: 32px;
+  padding: 5px 0;
+}
+
 .root-part {
   display: inline-block;
 }
 
 .root-part:hover {
   font-weight: bold;
+  cursor: pointer;
 }
 
 .root-part:nth-of-type(even) {
