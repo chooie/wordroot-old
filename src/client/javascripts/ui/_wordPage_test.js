@@ -7,6 +7,7 @@
 
   var wordPage = require("./wordPage");
   var util = require("./util");
+  var constants = require("../constants");
 
   describe("Word Page", function() {
     var container;
@@ -26,6 +27,9 @@
       .then(function() {
         assertStringInElement(container, TITLE);
         done();
+      })
+      .fail(function(error) {
+        throw new Error(error);
       });
     });
 
@@ -35,8 +39,14 @@
       .then(function() {
         roots.forEach(function(root) {
           assertStringInElement(container, root);
-          done();
         });
+        var elemClass = constants.cssClasses.rootPart;
+        var rootPartElems = document.querySelectorAll("." + elemClass);
+        assert.ok(rootPartElems.length === 3, "Correct number of root elems");
+        done();
+      })
+      .fail(function(error) {
+        throw new Error(error);
       });
     });
 
@@ -46,6 +56,9 @@
       .then(function() {
         assertStringInElement(container, MEANING);
         done();
+      })
+      .fail(function(error) {
+        throw new Error(error);
       });
     });
   });

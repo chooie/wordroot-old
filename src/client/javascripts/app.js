@@ -33,6 +33,9 @@
       appContainer.appendChild(container);
       var delay = calculateTimeToDelay(startTime, Date.now());
       callAfterDelay(delay, uiUtil.removeLoadingClass);
+    })
+    .fail(function(error) {
+      throw new Error(error);
     });
   }
 

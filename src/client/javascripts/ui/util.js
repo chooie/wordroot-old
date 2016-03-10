@@ -8,6 +8,9 @@
   function putElement(container, elementType, classes) {
     var element = document.createElement(elementType);
     if (classes) {
+      if (!Array.isArray(classes)) {
+        throw new Error("Classes must be passed as an array");
+      }
       classes.forEach(function(_class) {
         element.classList.add(_class);
       });

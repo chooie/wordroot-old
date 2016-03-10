@@ -6,6 +6,7 @@
   var Q = require("../../../shared/promise");
 
   var util = require("./util");
+  var constants = require("../constants");
 
   function populateTitle(container, title) {
     return Q.fcall(function() {
@@ -20,15 +21,21 @@
   }
 
   function populateCompositeRootPartsTitle(container, roots) {
-    return Q.fcall(function() {
+    var deferred = Q.defer();
+    try {
       var div = util.putElement(container, "div");
       roots.forEach(function(root) {
         addRoot(div, root);
       });
-    });
+      deferred.resolve();
+    } catch(e) {
+      deferred.reject(e);
+    }
+    return deferred.promise;
 
     function addRoot(container, root) {
-      var rootElem = util.putElement(container, "p");
+      var rootClass = constants.cssClasses.rootPart;
+      var rootElem = util.putElement(container, "p", [rootClass]);
       rootElem.innerHTML = root;
     }
   }
