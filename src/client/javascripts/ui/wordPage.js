@@ -55,10 +55,32 @@
     });
   }
 
+  function populateRootInfo(container, rootInfo) {
+    return Q.fcall(function() {
+      //var rootID = rootInfo.word;
+      var containerClass = constants.cssClasses.container;
+      var rootClass = "root-info";
+      var classes = [ containerClass, rootClass ];
+      var div = util.putElement(container, "div", classes);
+
+      createRootInfo(div);
+
+      function createRootInfo(container) {
+        var word = util.putElement(container, "div");
+        word.innerHTML = rootInfo.word;
+        var meaning = util.putElement(container, "div");
+        meaning.innerHTML = rootInfo.meaning;
+        var language = util.putElement(container, "div");
+        language.innerHTML = rootInfo.language;
+      }
+    });
+  }
+
   module.exports = {
     populateTitle: populateTitle,
     populateMeaning: populateMeaning,
-    populateCompositeRootPartsTitle: populateCompositeRootPartsTitle
+    populateCompositeRootPartsTitle: populateCompositeRootPartsTitle,
+    populateRootInfo: populateRootInfo
   };
 
 }());

@@ -61,6 +61,22 @@
         done(error);
       });
     });
+
+    it("populates root info", function(done) {
+      var rootInfo = {
+        word: "WORD", meaning: "WORD MEANING", language: "LANGUAGE"
+      };
+      wordPage.populateRootInfo(container, rootInfo)
+      .then(function() {
+        assertStringInElement(container, rootInfo.word);
+        assertStringInElement(container, rootInfo.meaning);
+        assertStringInElement(container, rootInfo.language);
+        done();
+      })
+      .fail(function(error) {
+        done(error);
+      });
+    });
   });
 
   function assertStringInElement(element, string) {
