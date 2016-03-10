@@ -9,8 +9,10 @@
 
   var cssClasses = {};
   var loading = "loading";
+  var rootPartTitle = "root-part-title";
   var rootPart = "root-part";
   cssClasses.loading = loading;
+  cssClasses.rootPartTitle = rootPartTitle;
   cssClasses.rootPart = rootPart;
 
   module.exports = {

@@ -21,25 +21,21 @@
   }
 
   function populateCompositeRootPartsTitle(container, roots) {
-    var deferred = Q.defer();
-    try {
-      var div = util.putElement(container, "div", [ "root-part-title" ]);
+    return Q.fcall(function() {
+      var rootPartTitle = constants.cssClasses.rootPartTitle;
+      var div = util.putElement(container, "div", [ rootPartTitle ]);
       roots.forEach(function(root, i) {
         addRoot(div, root, i);
       });
-      deferred.resolve();
-    } catch(e) {
-      deferred.reject(e);
-    }
-    return deferred.promise;
 
-    function addRoot(container, root, index) {
-      var COLORS = ["blue", "green", "red"];
-      var rootClass = constants.cssClasses.rootPart;
-      var rootElem = util.putElement(container, "p", [rootClass]);
-      rootElem.style.color = COLORS[index % COLORS.length];
-      rootElem.innerHTML = root;
-    }
+      function addRoot(container, root, index) {
+        var COLORS = ["blue", "green", "red"];
+        var rootClass = constants.cssClasses.rootPart;
+        var rootElem = util.putElement(container, "p", [rootClass]);
+        rootElem.style.color = COLORS[index % COLORS.length];
+        rootElem.innerHTML = root;
+      }
+    });
   }
 
   function populateMeaning(container, meaning) {
