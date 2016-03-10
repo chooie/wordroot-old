@@ -24,7 +24,7 @@
     var container = document.createElement("div");
     Q.all([
       wordPage.populateCompositeRootPartsTitle(
-        container, wordObj.getRootParts()
+        container, wordObj.getRootParts(), wordObj.getRoots()
       ),
       wordPage.populateMeaning(container, wordObj.getMeaning())
     ])
