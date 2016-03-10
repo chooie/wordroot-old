@@ -10,6 +10,13 @@
     checkOptions(options);
     var element = document.createElement(elementType);
 
+    if (options.id) {
+      if (typeof options.id !== "string") {
+        throw new Error("ID must be a string");
+      }
+      element.id = options.id;
+    }
+
     if (options.classes) {
       if (!Array.isArray(options.classes)) {
         throw new Error("Classes must be passed as an array");

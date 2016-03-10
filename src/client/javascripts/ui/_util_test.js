@@ -41,6 +41,13 @@
       }
     });
 
+    it("adds elements with an id", function() {
+      var id = "id1";
+      var elem = util.putElement(container, "div", { id: id });
+      var fetchedElem = document.getElementById(id);
+      assert.equal(fetchedElem, elem);
+    });
+
     it("hides loading elements", function() {
       var loadingClass = constants.cssClasses.loading;
       createLoadingElement();
