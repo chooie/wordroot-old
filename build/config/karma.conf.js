@@ -19,7 +19,8 @@
 	      'src/client/**/*.js',
         'src/shared/**/*.js',
         'vendor/chai-2.1.0.js',
-				'vendor/q-1.4.1.js',
+        'vendor/chai-as-promised-5.2.0.js',
+        'vendor/q-1.4.1.js',
         'vendor/classList.js'
 	    ],
 
@@ -37,7 +38,8 @@
         'src/client/**/*.js': ['commonjs'],
         'src/shared/**/*.js': ['commonjs'],
         'vendor/chai-2.1.0.js': ['commonjs'],
-				'vendor/q-1.4.1.js': ['commonjs'],
+        'vendor/chai-as-promised-5.2.0.js': ['commonjs'],
+        'vendor/q-1.4.1.js': ['commonjs'],
         'vendor/classList.js': ['commonjs']
       },
 

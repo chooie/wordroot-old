@@ -3,8 +3,11 @@
 (function() {
   "use strict";
 
-  var assert = require("../../vendor/chai-2.1.0").assert;
+  var chai = require("../../vendor/chai-2.1.0");
+  var chaiAsPromised = require("../../vendor/chai-as-promised-5.2.0");
 
-  module.exports = assert;
+  chai.use(chaiAsPromised);
+
+  module.exports = chai.assert;
 
 }());

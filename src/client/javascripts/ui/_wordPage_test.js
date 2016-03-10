@@ -29,7 +29,7 @@
         done();
       })
       .fail(function(error) {
-        throw new Error(error);
+        done(error);
       });
     });
 
@@ -46,7 +46,7 @@
         done();
       })
       .fail(function(error) {
-        throw new Error(error);
+        done(error);
       });
     });
 
@@ -58,7 +58,7 @@
         done();
       })
       .fail(function(error) {
-        throw new Error(error);
+        done(error);
       });
     });
   });
