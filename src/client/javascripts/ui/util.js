@@ -5,7 +5,7 @@
 
   var constants = require("../constants");
 
-  function putElement(container, elementType, options) {
+  function addElement(container, elementType, options) {
     options = options || {};
     checkOptions(options);
     var element = document.createElement(elementType);
@@ -48,7 +48,7 @@
   }
 
   module.exports = {
-    putElement: putElement,
+    addElement: addElement,
     removeElement: removeElement,
     removeLoadingClass: removeLoadingClass,
   };

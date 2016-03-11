@@ -21,13 +21,13 @@
     });
 
     it("adds elements", function() {
-      util.putElement(container, "div");
-      util.putElement(container, "h1");
+      util.addElement(container, "div");
+      util.addElement(container, "h1");
       assert.ok(container.innerHTML === "<div></div><h1></h1>");
     });
 
     it("removes elements", function() {
-      var elem = util.putElement(container, "div");
+      var elem = util.addElement(container, "div");
       util.removeElement(elem);
       checkContainerIsEmpty(container);
     });
@@ -35,7 +35,7 @@
     it("adds elements with classes", function() {
       var classes = [ "class1", "class2", "class3" ];
       var options = { classes: classes };
-      var elem = util.putElement(container, "div", options);
+      var elem = util.addElement(container, "div", options);
       for (var i = 0; i < elem.classList.length; i += 1) {
         assert.equal(elem.classList[i], classes[i]);
       }
@@ -43,7 +43,7 @@
 
     it("adds elements with an id", function() {
       var id = "id1";
-      var elem = util.putElement(container, "div", { id: id });
+      var elem = util.addElement(container, "div", { id: id });
       var fetchedElem = document.getElementById(id);
       assert.equal(fetchedElem, elem);
     });
