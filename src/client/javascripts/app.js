@@ -16,24 +16,25 @@
   function setUpPage(appContainer) {
     if (!appContainer) throw Error("No app element in page");
     var startTime = Date.now();
+
     wordUtil.make()
     .then(function(word) {
-      fillWordPage(startTime, appContainer, word);
+      fillWordPage(appContainer, word);
+      return wait(calculateTimeToDelay(startTime, Date.now()));
+    })
+    .then(function() {
+      uiUtil.removeLoadingClass();
     })
     .fail(function(err) {
       throw err;
-    })
+    });
   }
 
-  function fillWordPage(startTime, appContainer, wordObj) {
+  function fillWordPage(appContainer, word) {
     var container = document.createElement("div");
-    wordPage.addTitle(
-      container, wordObj.getRootParts(), wordObj.getRoots()
-    );
-    wordPage.addMeaning(container, wordObj.getMeaning());
+    wordPage.addTitle(container, word.getRootParts(), word.getRoots());
+    wordPage.addMeaning(container, word.getMeaning());
     appContainer.appendChild(container);
-    var delay = calculateTimeToDelay(startTime, Date.now());
-    callAfterDelay(delay, uiUtil.removeLoadingClass);
   }
 
   function calculateTimeToDelay(before, after) {
@@ -43,10 +44,9 @@
     return actualDelayTime < 0 ? 0 : actualDelayTime;
   }
 
-  function callAfterDelay(delayTime, callback) {
+  function wait(delayTime) {
     var deferred = Q.defer();
     setTimeout(function() {
-      callback();
       deferred.resolve();
     }, delayTime);
     return deferred.promise;
