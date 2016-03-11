@@ -28,7 +28,7 @@
       var options = { classes: classes };
       var div = util.putElement(container, "div", options);
       rootParts.forEach(function(rootPart, i) {
-        addRootPart(div, rootPart, i);
+        createRootPart(div, rootPart, i);
       });
 
       if (roots) {
@@ -37,13 +37,32 @@
         });
       }
 
-      function addRootPart(container, root, index) {
+      function createRootPart(container, root, index) {
         var COLORS = ["blue", "green", "red"];
         var rootClass = constants.cssClasses.rootPart;
         var options = { classes: [ rootClass ] };
         var rootElem = util.putElement(container, "p", options);
         rootElem.style.color = COLORS[index % COLORS.length];
         rootElem.innerHTML = root;
+      }
+    });
+  }
+
+  function populateRootInfo(container, rootInfo) {
+    return Q.fcall(function() {
+      var rootClass = "root-info";
+      var classes = [ rootClass ];
+      var div = util.putElement(container, "div", { classes: classes });
+
+      createRootInfo(div);
+
+      function createRootInfo(container) {
+        var word = util.putElement(container, "div");
+        word.innerHTML = rootInfo.word;
+        var meaning = util.putElement(container, "div");
+        meaning.innerHTML = rootInfo.meaning;
+        var language = util.putElement(container, "div");
+        language.innerHTML = rootInfo.language;
       }
     });
   }
@@ -63,31 +82,11 @@
     });
   }
 
-  function populateRootInfo(container, rootInfo) {
-    return Q.fcall(function() {
-      var containerClass = constants.cssClasses.container;
-      var rootClass = "root-info";
-      var classes = [ containerClass, rootClass ];
-      var div = util.putElement(container, "div", { classes: classes });
-
-      createRootInfo(div);
-
-      function createRootInfo(container) {
-        var word = util.putElement(container, "div");
-        word.innerHTML = rootInfo.word;
-        var meaning = util.putElement(container, "div");
-        meaning.innerHTML = rootInfo.meaning;
-        var language = util.putElement(container, "div");
-        language.innerHTML = rootInfo.language;
-      }
-    });
-  }
-
   module.exports = {
     populateTitle: populateTitle,
-    populateMeaning: populateMeaning,
     populateCompositeRootPartsTitle: populateCompositeRootPartsTitle,
-    populateRootInfo: populateRootInfo
+    populateRootInfo: populateRootInfo,
+    populateMeaning: populateMeaning
   };
 
 }());
