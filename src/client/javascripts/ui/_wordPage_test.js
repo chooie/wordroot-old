@@ -21,7 +21,7 @@
       util.removeElement(container);
     });
 
-    it("puts title", function(done) {
+    it("puts title", function() {
       var rootParts = [ "some", "root", "parts" ];
       var roots = [];
       for (var i = 0; i < 3; i += 1) {
@@ -32,35 +32,23 @@
           language: "lang" + num
         });
       }
-      wordPage.addTitle(container, rootParts, roots)
-      .then(function() {
-        var activeElem = document.querySelector(".title .active");
-        assert.ok(activeElem);
-        done();
-      })
-      .fail(function(error) {
-        done(error);
-      });
+      wordPage.addTitle(container, rootParts, roots);
+      var activeElem = document.querySelector(".title .active");
+      assert.ok(activeElem);
     });
 
-    it("puts root parts", function(done) {
+    it("puts root parts", function() {
       var roots = [ "some", "root", "parts" ];
-      wordPage.addRootParts(container, roots)
-      .then(function() {
-        roots.forEach(function(root) {
-          assertStringInElement(container, root);
-        });
-        var elemClass = constants.cssClasses.rootPart;
-        var rootPartElems = document.querySelectorAll("." + elemClass);
-        assert.ok(rootPartElems.length === 3, "Correct number of root elems");
-        done();
-      })
-      .fail(function(error) {
-        done(error);
+      wordPage.addRootParts(container, roots);
+      roots.forEach(function(root) {
+        assertStringInElement(container, root);
       });
+      var elemClass = constants.cssClasses.rootPart;
+      var rootPartElems = document.querySelectorAll("." + elemClass);
+      assert.ok(rootPartElems.length === 3, "Correct number of root elems");
     });
 
-    it("puts root info", function(done) {
+    it("puts root info", function() {
       var roots = [];
       for (var i = 0; i < 3; i += 1) {
         var num = i + 1;
@@ -70,32 +58,20 @@
           language: "lang" + num
         });
       }
-      wordPage.addRoots(container, roots)
-      .then(function() {
-        roots.forEach(function(root) {
-          assertStringInElement(container, root.word, "word - " + root.word);
-          assertStringInElement(container, root.meaning, "meaning - " +
-            root.meaning);
-          assertStringInElement(container, root.language, "language -" +
-            root.language);
-        });
-        done();
-      })
-      .fail(function(error) {
-        done(error);
+      wordPage.addRoots(container, roots);
+      roots.forEach(function(root) {
+        assertStringInElement(container, root.word, "word - " + root.word);
+        assertStringInElement(container, root.meaning, "meaning - " +
+          root.meaning);
+        assertStringInElement(container, root.language, "language -" +
+          root.language);
       });
     });
 
-    it("puts meaning", function(done) {
+    it("puts meaning", function() {
       var MEANING = "DEFAULT MEANING";
-      wordPage.addMeaning(container, MEANING)
-        .then(function() {
-          assertStringInElement(container, MEANING);
-          done();
-        })
-        .fail(function(error) {
-          done(error);
-        });
+      wordPage.addMeaning(container, MEANING);
+      assertStringInElement(container, MEANING);
     });
   });
 
