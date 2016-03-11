@@ -4,7 +4,7 @@
   "use strict";
 
   var misc = {};
-  var loadingTime = 1000;
+  var loadingTime = 1500;
   misc.loading = loadingTime;
 
   var cssClasses = {};

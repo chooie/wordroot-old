@@ -17,16 +17,23 @@
 
   function showElement(index, elems) {
     var toShow = elems[index];
+    var alreadyClicked = false;
+
+    if (toShow.classList.contains("active")) {
+      alreadyClicked = true;
+    }
 
     elems.forEach(function(elem) {
       elem.classList.remove("active");
     });
-    toShow.classList.add("active");
-
     elems.forEach(function(elem) {
       elem.classList.add("hide");
     });
-    toShow.classList.remove("hide");
+
+    if (!alreadyClicked) {
+      toShow.classList.add("active");
+      toShow.classList.remove("hide");
+    }
   }
 
   module.exports = {

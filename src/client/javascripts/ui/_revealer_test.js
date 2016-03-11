@@ -60,6 +60,26 @@
       assert.ok(toReveal.classList.contains("active"));
       assert.notOk(toReveal.classList.contains("hide"));
     });
+
+    it("reveals an element and then hides it when clicked again", function() {
+      var toClick = util.addElement(container, "div");
+      var toNotClick1 = util.addElement(container, "div");
+      var toNotClick2 = util.addElement(container, "div");
+
+      var toReveal = util.addElement(container, "div");
+      var toNotReveal1 = util.addElement(container, "div");
+      var toNotReveal2 = util.addElement(container, "div");
+
+      var clicks = [ toClick, toNotClick1, toNotClick2 ];
+      var reveals = [ toReveal, toNotReveal1, toNotReveal2 ];
+
+      revealer.initialise(clicks, reveals);
+
+      toClick.click();
+      toClick.click();
+
+      assert.ok(toReveal.classList.contains("hide"));
+    });
   });
 
 }());
