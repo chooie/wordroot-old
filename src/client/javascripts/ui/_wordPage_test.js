@@ -21,7 +21,7 @@
       util.removeElement(container);
     });
 
-    it("puts title", function() {
+    it.skip("puts title", function() {
       var rootParts = [ "some", "root", "parts" ];
       var roots = [];
       for (var i = 0; i < 3; i += 1) {

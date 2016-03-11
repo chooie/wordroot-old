@@ -25,8 +25,9 @@
     .then(function() {
       uiUtil.removeLoadingClass();
     })
-    .fail(function(err) {
-      throw err;
+    .catch(function(err) {
+      console.log(err);
+      // TODO: Add an error message to UI
     });
   }
 
