@@ -17,25 +17,23 @@
     if (!appContainer) throw Error("No app element in page");
     var startTime = Date.now();
     wordUtil.make()
-    .then(fillWordPage.bind(null, startTime, appContainer));
+    .then(function(word) {
+      fillWordPage(startTime, appContainer, word);
+    })
+    .fail(function(err) {
+      throw err;
+    })
   }
 
   function fillWordPage(startTime, appContainer, wordObj) {
     var container = document.createElement("div");
     wordPage.addTitle(
       container, wordObj.getRootParts(), wordObj.getRoots()
-    )
-    .then(function() {
-      wordPage.addMeaning(container, wordObj.getMeaning());
-    })
-    .then(function() {
-      appContainer.appendChild(container);
-      var delay = calculateTimeToDelay(startTime, Date.now());
-      callAfterDelay(delay, uiUtil.removeLoadingClass);
-    })
-    .fail(function(error) {
-      throw error;
-    });
+    );
+    wordPage.addMeaning(container, wordObj.getMeaning());
+    appContainer.appendChild(container);
+    var delay = calculateTimeToDelay(startTime, Date.now());
+    callAfterDelay(delay, uiUtil.removeLoadingClass);
   }
 
   function calculateTimeToDelay(before, after) {
