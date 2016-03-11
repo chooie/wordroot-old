@@ -84,6 +84,14 @@
   border-bottom: 1px solid;
 }
 
+.root-info {
+  display: none;
+}
+
+.root-info.active {
+  display: block;
+}
+
 .meaning {
   text-align: center;
   background: #C8E6C9;
