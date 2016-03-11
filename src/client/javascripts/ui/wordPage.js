@@ -8,7 +8,7 @@
   var util = require("./util");
   var constants = require("../constants");
 
-  function populateTitle(container, title) {
+  function putTitle(container, title) {
     return Q.fcall(function() {
       var div = util.putElement(container, "div");
       createHeader(div);
@@ -83,7 +83,7 @@
   }
 
   module.exports = {
-    populateTitle: populateTitle,
+    putTitle: putTitle,
     populateCompositeRootPartsTitle: populateCompositeRootPartsTitle,
     populateRootInfo: populateRootInfo,
     populateMeaning: populateMeaning

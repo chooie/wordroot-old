@@ -21,9 +21,9 @@
       util.removeElement(container);
     });
 
-    it("populates title", function(done) {
+    it("puts title", function(done) {
       var TITLE = "DEFAULT TITLE";
-      wordPage.populateTitle(container, TITLE)
+      wordPage.putTitle(container, TITLE)
       .then(function() {
         assertStringInElement(container, TITLE);
         done();
