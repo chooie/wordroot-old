@@ -22,11 +22,11 @@
 
   function fillWordPage(startTime, appContainer, wordObj) {
     var container = document.createElement("div");
-    wordPage.putTitle(
+    wordPage.addTitle(
       container, wordObj.getRootParts(), wordObj.getRoots()
     )
     .then(function() {
-      wordPage.putMeaning(container, wordObj.getMeaning());
+      wordPage.addMeaning(container, wordObj.getMeaning());
     })
     .then(function() {
       appContainer.appendChild(container);

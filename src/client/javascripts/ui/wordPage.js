@@ -8,20 +8,20 @@
   var util = require("./util");
   var constants = require("../constants");
 
-  function putTitle(container, rootParts, roots) {
+  function addTitle(container, rootParts, roots) {
     return Q.fcall(function() {
       var containerClass = constants.cssClasses.container;
       var titleClass = "title";
       var options = { classes: [ containerClass, titleClass ] };
       var title = util.addElement(container, "div", options);
       Q.all([
-        putRootParts(title, rootParts),
-        putRoots(title, roots)
+        addRootParts(title, rootParts),
+        addRoots(title, roots)
       ]);
     });
   }
 
-  function putRootParts(container, rootParts) {
+  function addRootParts(container, rootParts) {
     return Q.fcall(function() {
       var rootPartsClass = constants.cssClasses.rootParts;
       var classes = [ rootPartsClass ];
@@ -42,7 +42,7 @@
     });
   }
 
-  function putRoots(container, roots) {
+  function addRoots(container, roots) {
     return Q.fcall(function() {
       var rootClass = "roots";
       var classes = [ rootClass ];
@@ -73,7 +73,7 @@
     });
   }
 
-  function putMeaning(container, meaning) {
+  function addMeaning(container, meaning) {
     return Q.fcall(function() {
       var containerClass = constants.cssClasses.container;
       var meaningClass = constants.cssClasses.meaning;
@@ -89,10 +89,10 @@
   }
 
   module.exports = {
-    putTitle: putTitle,
-    putRootParts: putRootParts,
-    putRoots: putRoots,
-    putMeaning: putMeaning
+    addTitle: addTitle,
+    addRootParts: addRootParts,
+    addRoots: addRoots,
+    addMeaning: addMeaning
   };
 
 }());

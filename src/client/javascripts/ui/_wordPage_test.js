@@ -32,7 +32,7 @@
           language: "lang" + num
         });
       }
-      wordPage.putTitle(container, rootParts, roots)
+      wordPage.addTitle(container, rootParts, roots)
       .then(function() {
         var activeElem = document.querySelector(".title .active");
         assert.ok(activeElem);
@@ -45,7 +45,7 @@
 
     it("puts title composed of root parts", function(done) {
       var roots = [ "some", "root", "parts" ];
-      wordPage.putRootParts(container, roots)
+      wordPage.addRootParts(container, roots)
       .then(function() {
         roots.forEach(function(root) {
           assertStringInElement(container, root);
@@ -62,7 +62,7 @@
 
     it("puts meaning", function(done) {
       var MEANING = "DEFAULT MEANING";
-      wordPage.putMeaning(container, MEANING)
+      wordPage.addMeaning(container, MEANING)
       .then(function() {
         assertStringInElement(container, MEANING);
         done();
@@ -82,7 +82,7 @@
           language: "lang" + num
         });
       }
-      wordPage.putRoots(container, roots)
+      wordPage.addRoots(container, roots)
       .then(function() {
         roots.forEach(function(root) {
           assertStringInElement(container, root.word, "word - " + root.word);
