@@ -43,7 +43,7 @@
       });
     });
 
-    it("puts title composed of root parts", function(done) {
+    it("puts root parts", function(done) {
       var roots = [ "some", "root", "parts" ];
       wordPage.addRootParts(container, roots)
       .then(function() {
@@ -53,18 +53,6 @@
         var elemClass = constants.cssClasses.rootPart;
         var rootPartElems = document.querySelectorAll("." + elemClass);
         assert.ok(rootPartElems.length === 3, "Correct number of root elems");
-        done();
-      })
-      .fail(function(error) {
-        done(error);
-      });
-    });
-
-    it("puts meaning", function(done) {
-      var MEANING = "DEFAULT MEANING";
-      wordPage.addMeaning(container, MEANING)
-      .then(function() {
-        assertStringInElement(container, MEANING);
         done();
       })
       .fail(function(error) {
@@ -96,6 +84,18 @@
       .fail(function(error) {
         done(error);
       });
+    });
+
+    it("puts meaning", function(done) {
+      var MEANING = "DEFAULT MEANING";
+      wordPage.addMeaning(container, MEANING)
+        .then(function() {
+          assertStringInElement(container, MEANING);
+          done();
+        })
+        .fail(function(error) {
+          done(error);
+        });
     });
   });
 
