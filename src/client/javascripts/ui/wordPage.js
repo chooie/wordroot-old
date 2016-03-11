@@ -8,66 +8,72 @@
   var util = require("./util");
   var constants = require("../constants");
 
-  function putTitle(container, title) {
+  function putTitle(container, rootParts, roots) {
     return Q.fcall(function() {
-      var div = util.putElement(container, "div");
-      createHeader(div);
-
-      function createHeader(container) {
-        var header = util.putElement(container, "h1");
-        header.innerHTML = title;
-      }
+      var containerClass = constants.cssClasses.container;
+      var titleClass = "title";
+      var options = { classes: [ containerClass, titleClass ] };
+      var title = util.putElement(container, "div", options);
+      Q.all([
+        putRootParts(title, rootParts),
+        putRoots(title, roots)
+      ]);
     });
   }
 
-  function populateCompositeRootPartsTitle(container, rootParts, roots) {
+  function putRootParts(container, rootParts) {
     return Q.fcall(function() {
-      var rootPartTitle = constants.cssClasses.rootPartTitle;
-      var containerClass = constants.cssClasses.container;
-      var classes = [ containerClass, rootPartTitle ];
+      var rootPartsClass = constants.cssClasses.rootParts;
+      var classes = [ rootPartsClass ];
       var options = { classes: classes };
       var div = util.putElement(container, "div", options);
       rootParts.forEach(function(rootPart, i) {
         createRootPart(div, rootPart, i);
       });
 
-      if (roots) {
-        roots.forEach(function(root) {
-          populateRootInfo(div, root);
-        });
-      }
-
-      function createRootPart(container, root, index) {
+      function createRootPart(container, rootPart, index) {
         var COLORS = ["blue", "green", "red"];
         var rootClass = constants.cssClasses.rootPart;
-        var options = { classes: [ rootClass ] };
+        var options = { id: "root-part-" + index, classes: [ rootClass ]};
         var rootElem = util.putElement(container, "p", options);
         rootElem.style.color = COLORS[index % COLORS.length];
-        rootElem.innerHTML = root;
+        rootElem.innerHTML = rootPart;
       }
     });
   }
 
-  function populateRootInfo(container, rootInfo) {
+  function putRoots(container, roots) {
     return Q.fcall(function() {
-      var rootClass = "root-info";
+      var rootClass = "roots";
       var classes = [ rootClass ];
       var div = util.putElement(container, "div", { classes: classes });
 
-      createRootInfo(div);
+      roots.forEach(function(root, index) {
+        createRootInfoElem(div, root, index);
+      });
 
-      function createRootInfo(container) {
-        var word = util.putElement(container, "div");
-        word.innerHTML = rootInfo.word;
-        var meaning = util.putElement(container, "div");
-        meaning.innerHTML = rootInfo.meaning;
-        var language = util.putElement(container, "div");
-        language.innerHTML = rootInfo.language;
+      function createRootInfoElem(container, root, index) {
+        var rootElemClass = "root-info";
+        var classes = [ rootElemClass ];
+        if (index === 0) {
+          classes.push("active");
+        }
+        var options = { id: rootElemClass + "-" + index, classes: classes  };
+        var rootElem = util.putElement(container, "div", options);
+        var word = util.putElement(rootElem, "div",
+          { classes: [ "root-word" ] });
+        word.innerHTML = root.word;
+        var meaning = util.putElement(rootElem, "div",
+          { classes: [ "root-meaning" ] });
+        meaning.innerHTML = root.meaning;
+        var language = util.putElement(rootElem, "div",
+          { classes: [ "root-language" ] });
+        language.innerHTML = root.language;
       }
     });
   }
 
-  function populateMeaning(container, meaning) {
+  function putMeaning(container, meaning) {
     return Q.fcall(function() {
       var containerClass = constants.cssClasses.container;
       var meaningClass = constants.cssClasses.meaning;
@@ -84,9 +90,9 @@
 
   module.exports = {
     putTitle: putTitle,
-    populateCompositeRootPartsTitle: populateCompositeRootPartsTitle,
-    populateRootInfo: populateRootInfo,
-    populateMeaning: populateMeaning
+    putRootParts: putRootParts,
+    putRoots: putRoots,
+    putMeaning: putMeaning
   };
 
 }());

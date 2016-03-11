@@ -22,10 +22,20 @@
     });
 
     it("puts title", function(done) {
-      var TITLE = "DEFAULT TITLE";
-      wordPage.putTitle(container, TITLE)
+      var rootParts = [ "some", "root", "parts" ];
+      var roots = [];
+      for (var i = 0; i < 3; i += 1) {
+        var num = i + 1;
+        roots.push({
+          word: "word" + num,
+          meaning: "meaning" + num,
+          language: "lang" + num
+        });
+      }
+      wordPage.putTitle(container, rootParts, roots)
       .then(function() {
-        assertStringInElement(container, TITLE);
+        var activeElem = document.querySelector(".title .active");
+        assert.ok(activeElem);
         done();
       })
       .fail(function(error) {
@@ -33,9 +43,9 @@
       });
     });
 
-    it("populates title composed of root parts", function(done) {
+    it("puts title composed of root parts", function(done) {
       var roots = [ "some", "root", "parts" ];
-      wordPage.populateCompositeRootPartsTitle(container, roots)
+      wordPage.putRootParts(container, roots)
       .then(function() {
         roots.forEach(function(root) {
           assertStringInElement(container, root);
@@ -50,9 +60,9 @@
       });
     });
 
-    it("populates meaning", function(done) {
+    it("puts meaning", function(done) {
       var MEANING = "DEFAULT MEANING";
-      wordPage.populateMeaning(container, MEANING)
+      wordPage.putMeaning(container, MEANING)
       .then(function() {
         assertStringInElement(container, MEANING);
         done();
@@ -62,15 +72,25 @@
       });
     });
 
-    it("populates root info", function(done) {
-      var rootInfo = {
-        word: "WORD", meaning: "WORD MEANING", language: "LANGUAGE"
-      };
-      wordPage.populateRootInfo(container, rootInfo)
+    it("puts root info", function(done) {
+      var roots = [];
+      for (var i = 0; i < 3; i += 1) {
+        var num = i + 1;
+        roots.push({
+          word: "word" + num,
+          meaning: "meaning" + num,
+          language: "lang" + num
+        });
+      }
+      wordPage.putRoots(container, roots)
       .then(function() {
-        assertStringInElement(container, rootInfo.word);
-        assertStringInElement(container, rootInfo.meaning);
-        assertStringInElement(container, rootInfo.language);
+        roots.forEach(function(root) {
+          assertStringInElement(container, root.word, "word - " + root.word);
+          assertStringInElement(container, root.meaning, "meaning - " +
+            root.meaning);
+          assertStringInElement(container, root.language, "language -" +
+            root.language);
+        });
         done();
       })
       .fail(function(error) {
@@ -79,9 +99,9 @@
     });
   });
 
-  function assertStringInElement(element, string) {
+  function assertStringInElement(element, string, message) {
     var elementStr = element.innerHTML;
-    assert.ok(elementStr.indexOf(string) > -1);
+    assert.ok(elementStr.indexOf(string) > -1, message);
   }
 
 }());

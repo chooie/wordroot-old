@@ -22,19 +22,19 @@
 
   function fillWordPage(startTime, appContainer, wordObj) {
     var container = document.createElement("div");
-    Q.all([
-      wordPage.populateCompositeRootPartsTitle(
-        container, wordObj.getRootParts(), wordObj.getRoots()
-      ),
-      wordPage.populateMeaning(container, wordObj.getMeaning())
-    ])
+    wordPage.putTitle(
+      container, wordObj.getRootParts(), wordObj.getRoots()
+    )
+    .then(function() {
+      wordPage.putMeaning(container, wordObj.getMeaning());
+    })
     .then(function() {
       appContainer.appendChild(container);
       var delay = calculateTimeToDelay(startTime, Date.now());
       callAfterDelay(delay, uiUtil.removeLoadingClass);
     })
     .fail(function(error) {
-      throw new Error(error);
+      throw error;
     });
   }
 

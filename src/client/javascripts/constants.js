@@ -10,12 +10,12 @@
   var cssClasses = {};
   var container = "container";
   var loading = "loading";
-  var rootPartTitle = "root-part-title";
+  var rootParts = "root-parts";
   var rootPart = "root-part";
   var meaning = "meaning";
   cssClasses.container = container;
   cssClasses.loading = loading;
-  cssClasses.rootPartTitle = rootPartTitle;
+  cssClasses.rootParts = rootParts;
   cssClasses.rootPart = rootPart;
   cssClasses.meaning = meaning;
 
