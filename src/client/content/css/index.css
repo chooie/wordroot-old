@@ -71,8 +71,11 @@
   display: inline-block;
 }
 
-.root-part:hover {
+.root-part.active {
   font-weight: bold;
+}
+
+.root-part:hover {
   cursor: pointer;
 }
 

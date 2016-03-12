@@ -32,12 +32,14 @@
       assert.ok(elem3.classList.contains("hide"));
     });
 
-    it("reveals an element", function() {
+    it("reveals an element and makes clicked active", function() {
+      var clicked = util.addElement(container, "div");
       var toReveal = util.addElement(container, "div");
       var toNotReveal1 = util.addElement(container, "div");
       var toNotReveal2 = util.addElement(container, "div");
       var reveals = [ toReveal, toNotReveal1, toNotReveal2 ];
-      revealer.showElement(0, reveals);
+      revealer.showElement(clicked, 0, [ clicked ], reveals);
+      assert.ok(clicked.classList.contains("active"));
       assert.ok(toReveal.classList.contains("active"));
     });
 

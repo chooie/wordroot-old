@@ -10,27 +10,33 @@
 
     clickElems.forEach(function(clickElem, index) {
       clickElem.addEventListener("click", function() {
-        showElement(index, revealElems);
+        showElement(clickElem, index, clickElems, revealElems);
       });
     });
   }
 
-  function showElement(index, elems) {
-    var toShow = elems[index];
+  function showElement(clickElem, index, clickElems, revealElems) {
+    var toShow = revealElems[index];
     var alreadyClicked = false;
 
     if (toShow.classList.contains("active")) {
       alreadyClicked = true;
     }
 
-    elems.forEach(function(elem) {
+    clickElems.forEach(function(elem) {
       elem.classList.remove("active");
     });
-    elems.forEach(function(elem) {
+
+    revealElems.forEach(function(elem) {
+      elem.classList.remove("active");
+    });
+    revealElems.forEach(function(elem) {
       elem.classList.add("hide");
     });
 
     if (!alreadyClicked) {
+      clickElem.classList.add("active");
+
       toShow.classList.add("active");
       toShow.classList.remove("hide");
     }
