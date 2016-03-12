@@ -4,17 +4,13 @@
   "use strict";
 
   var assert = require("../../../shared/assert");
-  var word = require("./word");
+  var Word = require("./Word");
 
   describe("Word", function() {
     var wordObj;
 
-    beforeEach(function(done) {
-      word.make()
-      .then(function(word) {
-        wordObj = word;
-        done();
-      });
+    beforeEach(function() {
+      wordObj = new Word();
     });
 
     it("has a meaning", function() {

@@ -6,7 +6,7 @@
   var Q = require("../../shared/promise");
   var classList = require("../../../vendor/classList");
 
-  var wordUtil = require("./data/word");
+  var wordUtil = require("./data/Word");
   var wordPage = require("./ui/wordPage");
   var uiUtil = require("./ui/util");
   var constants = require("./constants");

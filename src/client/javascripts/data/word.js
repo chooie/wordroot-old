@@ -3,11 +3,9 @@
 (function() {
   "use strict";
 
-  var Q = require("../../../shared/promise");
-
   var testWord = require("./testWord");
 
-  module.exports.make = make;
+  module.exports = Word;
 
   function Word() {
     this.info = testWord;
@@ -35,18 +33,6 @@
       });
       return parts;
     };
-  }
-
-  function make() {
-    return Q.fcall(function() {
-      var deferred = Q.defer();
-      // TODO: Replace fake async call for real implementation
-      var word = new Word();
-      setTimeout(function() {
-        deferred.resolve(word);
-      }, 0);
-      return deferred.promise;
-    });
   }
 
 }());
