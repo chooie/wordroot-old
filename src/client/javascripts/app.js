@@ -6,7 +6,7 @@
   var Q = require("../../shared/promise");
   var classList = require("../../../vendor/classList");
 
-  var wordUtil = require("./data/Word");
+  var wordAPI = require("./data/WordAPI");
   var wordPage = require("./ui/wordPage");
   var uiUtil = require("./ui/util");
   var constants = require("./constants");
@@ -17,7 +17,7 @@
     if (!appContainer) throw Error("No app element in page");
     var startTime = Date.now();
 
-    wordUtil.make()
+    wordAPI.make()
     .then(function(word) {
       fillWordPage(appContainer, word);
       return wait(calculateTimeToDelay(startTime, Date.now()));
