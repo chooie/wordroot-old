@@ -12,6 +12,16 @@
       clickElem.addEventListener("click", function() {
         showElement(clickElem, index, clickElems, revealElems);
       });
+      preventDoubleClickHighlight(clickElem);
+
+      function preventDoubleClickHighlight(elem) {
+        elem.addEventListener("dragstart", function(e) {
+          e.preventDefault();
+        });
+        elem.addEventListener("selectstart", function(e) {
+          e.preventDefault();
+        });
+      }
     });
   }
 
