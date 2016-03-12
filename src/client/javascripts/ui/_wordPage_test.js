@@ -7,7 +7,7 @@
 
   var wordPage = require("./wordPage");
   var util = require("./util");
-  var constants = require("../constants");
+  var testUtil = require("./testUtil");
 
   describe("Word Page", function() {
     var container;
@@ -37,47 +37,11 @@
       assert.ok(activeElem);
     });
 
-    it("puts root parts", function() {
-      var roots = [ "some", "root", "parts" ];
-      wordPage.addRootParts(container, roots);
-      roots.forEach(function(root) {
-        assertStringInElement(container, root);
-      });
-      var elemClass = constants.cssClasses.rootPart;
-      var rootPartElems = document.querySelectorAll("." + elemClass);
-      assert.ok(rootPartElems.length === 3, "Correct number of root elems");
-    });
-
-    it("puts root info", function() {
-      var roots = [];
-      for (var i = 0; i < 3; i += 1) {
-        var num = i + 1;
-        roots.push({
-          word: "word" + num,
-          meaning: "meaning" + num,
-          language: "lang" + num
-        });
-      }
-      wordPage.addRoots(container, roots);
-      roots.forEach(function(root) {
-        assertStringInElement(container, root.word, "word - " + root.word);
-        assertStringInElement(container, root.meaning, "meaning - " +
-          root.meaning);
-        assertStringInElement(container, root.language, "language -" +
-          root.language);
-      });
-    });
-
     it("puts meaning", function() {
       var MEANING = "DEFAULT MEANING";
       wordPage.addMeaning(container, MEANING);
-      assertStringInElement(container, MEANING);
+      testUtil.assertStringInElement(container, MEANING);
     });
   });
-
-  function assertStringInElement(element, string, message) {
-    var elementStr = element.innerHTML;
-    assert.ok(elementStr.indexOf(string) > -1, message);
-  }
 
 }());
