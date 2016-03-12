@@ -21,20 +21,29 @@
       util.removeElement(container);
     });
 
-    it.skip("puts title", function() {
-      var rootParts = [ "some", "root", "parts" ];
-      var roots = [];
-      for (var i = 0; i < 3; i += 1) {
-        var num = i + 1;
-        roots.push({
-          word: "word" + num,
-          meaning: "meaning" + num,
-          language: "lang" + num
-        });
+    it("puts title", function() {
+      addTitleWithTestInfo();
+      var titleElem = document.querySelector(".title");
+      assert.ok(titleElem);
+
+      function addTitleWithTestInfo() {
+        var rootParts = ["some", "root", "parts"];
+        var roots = createRoots();
+        wordPage.addTitle(container, rootParts, roots);
+
+        function createRoots() {
+          var roots = [];
+          for (var i = 0; i < 3; i += 1) {
+            var num = i + 1;
+            roots.push({
+              word: "word" + num,
+              meaning: "meaning" + num,
+              language: "lang" + num
+            });
+          }
+          return roots;
+        }
       }
-      wordPage.addTitle(container, rootParts, roots);
-      var activeElem = document.querySelector(".title .active");
-      assert.ok(activeElem);
     });
 
     it("puts meaning", function() {
