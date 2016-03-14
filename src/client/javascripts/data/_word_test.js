@@ -5,28 +5,32 @@
 
   var assert = require("../../../shared/assert");
   var Word = require("./Word");
-  var testWord = require("./testWord");
+  var testWord_somePartsHaveRoots = require("./testWord_somePartsHaveRoots");
 
   describe("Word", function() {
     var wordObj;
 
     beforeEach(function() {
-      wordObj = new Word(testWord);
+      wordObj = new Word(testWord_somePartsHaveRoots);
     });
 
     it("has a meaning", function() {
       assert.equal(
-        wordObj.getMeaning(),
-        "The story that someone writes about their own life"
+        wordObj.getMeaning().toLowerCase(),
+        testWord_somePartsHaveRoots.meaning
       );
     });
 
     it("has roots", function() {
       var roots = wordObj.getRoots();
-      roots.forEach(function (root) {
-        assert.ok(root.word);
-        assert.ok(root.language);
-        assert.ok(root.meaning);
+      roots.forEach(function (root, i) {
+        if (i < 2) {
+          assert.ok(root.word);
+          assert.ok(root.language);
+          assert.ok(root.meaning);
+        } else {
+          assert.notOk(root);
+        }
       });
     });
 

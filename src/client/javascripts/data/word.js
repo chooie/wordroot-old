@@ -3,6 +3,8 @@
 (function() {
   "use strict";
 
+  var util = require("../../../shared/util");
+
   module.exports = Word;
 
   function Word(info) {
@@ -11,11 +13,7 @@
     this.info = info;
     this.getMeaning = function() {
       var meaning = this.info.meaning;
-      return capitalizeFirstLetter(meaning);
-
-      function capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-      }
+      return util.capitalizeFirstLetter(meaning);
     };
 
     this.getRoots = function() {

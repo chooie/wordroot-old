@@ -3,27 +3,12 @@
 (function() {
   "use strict";
 
-  var testWord = require("./testWord");
+  var testWord_allPartsHaveRoots = require("./testWord_allPartsHaveRoots");
+  var testWord_somePartsHaveRoots = require("./testWord_somePartsHaveRoots");
 
   module.exports = [
-    testWord,
-    {
-      word: "idiot",
-      meaning: "a silly person",
-      roots: [
-        {
-          part: "idio",
-          root: {
-            word: "idios",
-            meaning: "private",
-            language: "Greek"
-          }
-        },
-        {
-          part: "t"
-        }
-      ]
-    }
+    testWord_allPartsHaveRoots,
+    testWord_somePartsHaveRoots
   ];
 
 }());
