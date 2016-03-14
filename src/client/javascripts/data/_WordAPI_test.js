@@ -5,16 +5,19 @@
 
   var assert = require("../../../shared/assert");
   var wordAPI = require("./WordAPI");
+  var testWords = require("./testWords");
 
   describe("Word API", function() {
     it("gets a word", function(done) {
-      wordAPI.make()
+      var testWord = testWords[0].word;
+      wordAPI.make(testWord)
       .then(function(word) {
         assert.ok(word);
         done();
       })
       .catch(function(err) {
         console.log(err);
+        done(err);
       });
     });
   });

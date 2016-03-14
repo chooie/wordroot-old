@@ -3,12 +3,12 @@
 (function() {
   "use strict";
 
-  var testWord = require("./testWord");
-
   module.exports = Word;
 
-  function Word() {
-    this.info = testWord;
+  function Word(info) {
+    if (!info) throw new Error("Must provide an info object");
+
+    this.info = info;
     this.getMeaning = function() {
       var meaning = this.info.meaning;
       return capitalizeFirstLetter(meaning);

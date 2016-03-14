@@ -5,12 +5,13 @@
 
   var assert = require("../../../shared/assert");
   var Word = require("./Word");
+  var testWord = require("./testWord");
 
   describe("Word", function() {
     var wordObj;
 
     beforeEach(function() {
-      wordObj = new Word();
+      wordObj = new Word(testWord);
     });
 
     it("has a meaning", function() {

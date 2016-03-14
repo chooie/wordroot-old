@@ -13,11 +13,11 @@
 
   classList.shim();
 
-  function setUpPage(appContainer) {
+  function setUpPage(appContainer, wordId) {
     if (!appContainer) throw Error("No app element in page");
     var startTime = Date.now();
 
-    wordAPI.make()
+    wordAPI.make(wordId)
     .then(function(word) {
       fillWordPage(appContainer, word);
       return wait(calculateTimeToDelay(startTime, Date.now()));
