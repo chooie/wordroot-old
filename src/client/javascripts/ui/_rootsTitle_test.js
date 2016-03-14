@@ -23,14 +23,18 @@
     });
 
     it("puts root parts", function() {
-      var roots = [ "some", "root", "parts" ];
-      rootsTitle.addRootParts(container, roots);
-      roots.forEach(function(root) {
-        testUtil.assertStringInElement(container, root);
+      var parts = [
+        { part: "hasRoot1", hasRoot: true },
+        { part: "notHasRoot", hasRoot: false },
+        { part: "hasRoot2", hasRoot: true }
+      ];
+      rootsTitle.addRootParts(container, parts);
+      parts.forEach(function(part) {
+        testUtil.assertStringInElement(container, part.part, part.part);
       });
       var elemClass = constants.cssClasses.rootPart;
       var rootPartElems = document.querySelectorAll("." + elemClass);
-      assert.ok(rootPartElems.length === 3, "Correct number of root elems");
+      assert.equal(rootPartElems.length, 2, "Correct number of root elems");
     });
 
     it("puts root info", function() {

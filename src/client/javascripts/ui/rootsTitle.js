@@ -7,6 +7,7 @@
   var css = require("../constants").cssClasses;
 
   function addRootParts(container, rootParts) {
+    // rootParts { part: str, hasRoot: bool }
     var div = util.addElement(container, "div", { classes: [ css.rootParts ] });
     var rootPartElems = [];
     rootParts.forEach(function(rootPart, i) {
@@ -15,9 +16,18 @@
     return rootPartElems;
 
     function createRootPart(container, rootPart, index) {
-      var elem = util.addElement(container, "p", { classes: [ css.rootPart ]});
-      setColorBasedOnIndex(elem, index);
-      elem.innerHTML = rootPart;
+      var part = rootPart.part;
+      var hasRoot = rootPart.hasRoot;
+      var elem;
+      if (hasRoot) {
+        var options = { classes: [ css.rootPart ] };
+        elem = util.addElement(container, "p", options);
+        setColorBasedOnIndex(elem, index);
+      } else {
+        elem = util.addElement(container, "p", options);
+      }
+
+      elem.innerHTML = part;
       return elem;
 
       function setColorBasedOnIndex(elem, i) {
