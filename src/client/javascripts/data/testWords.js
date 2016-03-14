@@ -6,7 +6,24 @@
   var testWord = require("./testWord");
 
   module.exports = [
-    testWord
+    testWord,
+    {
+      word: "idiot",
+      meaning: "a silly person",
+      roots: [
+        {
+          part: "idio",
+          root: {
+            word: "idios",
+            meaning: "private",
+            language: "Greek"
+          }
+        },
+        {
+          part: "t"
+        }
+      ]
+    }
   ];
 
 }());

@@ -31,7 +31,9 @@
     var div = util.addElement(container, "div", { classes: [ "roots" ] });
     var rootElems = [];
     roots.forEach(function(root) {
-      rootElems.push(addRootInfoElem(div, root));
+      if (root) {
+        rootElems.push(addRootInfoElem(div, root));
+      }
     });
     return rootElems;
 
