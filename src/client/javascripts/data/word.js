@@ -26,8 +26,15 @@
 
     this.getRootParts = function() {
       var parts = [];
-      this.info.roots.forEach(function(root) {
-        parts.push(root.part);
+      var roots = this.getRoots();
+      this.info.roots.forEach(function(root, i) {
+        var part = { part: root.part };
+        if (roots[i]) {
+          part.hasRoot = true;
+        } else {
+          part.hasRoot = false;
+        }
+        parts.push(part);
       });
       return parts;
     };

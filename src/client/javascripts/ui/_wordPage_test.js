@@ -27,9 +27,13 @@
       assert.ok(titleElem);
 
       function addTitleWithTestInfo() {
-        var rootParts = ["some", "root", "parts"];
+        var parts = [
+          { part: "hasRoot1", hasRoot: true },
+          { part: "notHasRoot", hasRoot: false },
+          { part: "hasRoot2", hasRoot: true }
+        ];
         var roots = createRoots();
-        wordPage.addTitle(container, rootParts, roots);
+        wordPage.addTitle(container, parts, roots);
 
         function createRoots() {
           var roots = [];

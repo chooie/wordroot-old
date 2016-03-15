@@ -16,10 +16,12 @@
     return rootPartElems;
 
     function createRootPart(container, rootPart, index) {
-      var part = rootPart.part;
-      var hasRoot = rootPart.hasRoot;
+      if (!rootPart.part) throw new Error("Must have part");
+      if (typeof rootPart.hasRoot === "undefined") {
+        throw new Error("Must have hasRoot");
+      }
       var elem;
-      if (hasRoot) {
+      if (rootPart.hasRoot) {
         var options = { classes: [ css.rootPart ] };
         elem = util.addElement(container, "p", options);
         setColorBasedOnIndex(elem, index);
@@ -27,7 +29,7 @@
         elem = util.addElement(container, "p", options);
       }
 
-      elem.innerHTML = part;
+      elem.innerHTML = rootPart.part;
       return elem;
 
       function setColorBasedOnIndex(elem, i) {

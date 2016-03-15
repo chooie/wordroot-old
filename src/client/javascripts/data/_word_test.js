@@ -38,9 +38,19 @@
       var word = wordObj.info.word;
       var accumWord = "";
       wordObj.getRootParts().forEach(function(rootPart) {
-        accumWord += rootPart;
+        accumWord += rootPart.part;
       });
       assert.equal(accumWord, word, "parts make up word");
+    });
+
+    it("has parts where some have a related root and others don't", function() {
+      wordObj.getRootParts().forEach(function(rootPart, i) {
+        if (i < 2) {
+          assert.ok(rootPart.hasRoot);
+        } else {
+          assert.notOk(rootPart.hasRoot);
+        }
+      });
     });
   });
 
