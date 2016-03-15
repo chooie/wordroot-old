@@ -5,7 +5,7 @@
 
   module.exports = {
     word: "thisisareallylongword",
-    meaning: "the story that someone writes about their own life",
+    meaning: "some meaning about a really long word",
     roots: [
       {
         part: "this",

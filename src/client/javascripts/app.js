@@ -14,10 +14,15 @@
 
   classList.shim();
 
-  function run(container) {
-    var handler = setUpPage.bind(null, container, "thisisareallylongword");
+  function run(/*container*/) {
+    var pageContainer = document.getElementById("page");
+    var handler1 = setUpPage.bind(null, pageContainer, "thisisareallylongword");
+    var handler2 = setUpPage.bind(null, pageContainer, "autobiography");
     var router = new Router();
-    var routes = [ { name: "route1", handler: handler } ];
+    var routes = [
+      { name: "route1", handler: handler1 },
+      { name: "route2", handler: handler2 }
+    ];
     router.initialise({ routes: routes });
     router.navigateTo("route1");
   }
@@ -25,6 +30,7 @@
   function setUpPage(appContainer, wordId) {
     if (!appContainer) throw Error("No app element in page");
     var startTime = Date.now();
+    appContainer.innerHTML = "";
 
     wordAPI.make(wordId)
     .then(function(word) {
