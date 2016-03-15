@@ -82,6 +82,22 @@
 
       assert.ok(toReveal.classList.contains("hide"));
     });
+
+    it("handles a click element having no root", function() {
+      var toClick = util.addElement(container, "div");
+      var toNotClick1 = util.addElement(container, "div");
+      var toNotClick2 = util.addElement(container, "div");
+
+      var toNotReveal1 = util.addElement(container, "div");
+      var toNotReveal2 = util.addElement(container, "div");
+
+      var clicks = [ toClick, toNotClick1, toNotClick2 ];
+      var reveals = [ undefined, toNotReveal1, toNotReveal2 ];
+
+      revealer.initialise(clicks, reveals);
+      toClick.click();
+      assert.ok(true);
+    });
   });
 
 }());

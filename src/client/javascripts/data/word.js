@@ -19,7 +19,10 @@
     this.getRoots = function() {
       var roots = [];
       this.info.roots.forEach(function(root) {
-        roots.push(root.root);
+        if (root.root) {
+          return roots.push(root.root);
+        }
+        roots.push(undefined);
       });
       return roots;
     };

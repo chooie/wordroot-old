@@ -10,8 +10,12 @@
     // rootParts { part: str, hasRoot: bool }
     var div = util.addElement(container, "div", { classes: [ css.rootParts ] });
     var rootPartElems = [];
-    rootParts.forEach(function(rootPart, i) {
-      rootPartElems.push(createRootPart(div, rootPart, i));
+    var rootPartIndex = 0;
+    rootParts.forEach(function(rootPart) {
+      rootPartElems.push(createRootPart(div, rootPart, rootPartIndex));
+      if (rootPart.hasRoot) {
+        rootPartIndex += 1;
+      }
     });
     return rootPartElems;
 
@@ -26,6 +30,7 @@
         elem = util.addElement(container, "p", options);
         setColorBasedOnIndex(elem, index);
       } else {
+        options = { classes: [ "part-no-root" ] };
         elem = util.addElement(container, "p", options);
       }
 
@@ -44,8 +49,10 @@
     var rootElems = [];
     roots.forEach(function(root) {
       if (root) {
-        rootElems.push(addRootInfoElem(div, root));
+        return rootElems.push(addRootInfoElem(div, root));
       }
+      rootElems.push(undefined);
+
     });
     return rootElems;
 

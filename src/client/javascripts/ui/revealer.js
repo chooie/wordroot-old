@@ -5,12 +5,16 @@
 
   function initialise(clickElems, revealElems) {
     revealElems.forEach(function(reveal) {
-      reveal.classList.add("hide");
+      if (reveal) {
+        reveal.classList.add("hide");
+      }
     });
 
     clickElems.forEach(function(clickElem, index) {
       clickElem.addEventListener("click", function() {
-        showElement(clickElem, index, clickElems, revealElems);
+        if (revealElems[index]) {
+          showElement(clickElem, index, clickElems, revealElems);
+        }
       });
       preventDoubleClickHighlight(clickElem);
 
@@ -38,10 +42,14 @@
     });
 
     revealElems.forEach(function(elem) {
-      elem.classList.remove("active");
+      if (elem) {
+        elem.classList.remove("active");
+      }
     });
     revealElems.forEach(function(elem) {
-      elem.classList.add("hide");
+      if (elem) {
+        elem.classList.add("hide");
+      }
     });
 
     if (!alreadyClicked) {

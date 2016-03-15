@@ -15,7 +15,7 @@
     var rootElems = rootsTitle.addRoots(title, roots);
     revealer.initialise(rootPartElems, rootElems);
     return title;
-    }
+  }
 
   function addMeaning(container, meaning) {
     var classes = [ css.container, css.meaning ];
