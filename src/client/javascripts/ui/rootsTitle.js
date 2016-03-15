@@ -26,7 +26,8 @@
       }
       var elem;
       if (rootPart.hasRoot) {
-        var options = { classes: [ css.rootPart ] };
+        var lineClass = index % 2 === 0 ? "underline" : "overline";
+        var options = { classes: [ css.rootPart, lineClass ] };
         elem = util.addElement(container, "p", options);
         setColorBasedOnIndex(elem, index);
       } else {

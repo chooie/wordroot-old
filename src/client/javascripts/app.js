@@ -6,12 +6,21 @@
   var Q = require("../../shared/promise");
   var classList = require("../../../vendor/classList");
 
+  var Router = require("./Router");
+  var page = require("./page");
   var wordAPI = require("./data/WordAPI");
-  var wordPage = require("./ui/wordPage");
   var uiUtil = require("./ui/util");
   var constants = require("./constants");
 
   classList.shim();
+
+  function run(container) {
+    var handler = setUpPage.bind(null, container, "thisisareallylongword");
+    var router = new Router();
+    var routes = [ { name: "route1", handler: handler } ];
+    router.initialise({ routes: routes });
+    router.navigateTo("route1");
+  }
 
   function setUpPage(appContainer, wordId) {
     if (!appContainer) throw Error("No app element in page");
@@ -19,7 +28,7 @@
 
     wordAPI.make(wordId)
     .then(function(word) {
-      fillWordPage(appContainer, word);
+      page.fillWordPage(appContainer, word);
       return wait(calculateTimeToDelay(startTime, Date.now()));
     })
     .then(function() {
@@ -29,13 +38,6 @@
       console.log(err);
       // TODO: Add an error message to UI
     });
-  }
-
-  function fillWordPage(appContainer, word) {
-    var container = document.createElement("div");
-    wordPage.addTitle(container, word.getRootParts(), word.getRoots());
-    wordPage.addMeaning(container, word.getMeaning());
-    appContainer.appendChild(container);
   }
 
   function calculateTimeToDelay(before, after) {
@@ -54,7 +56,7 @@
   }
 
   module.exports = {
-    setUpPage: setUpPage
+    run: run
   };
 
 }());

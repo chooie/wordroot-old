@@ -87,12 +87,12 @@
   cursor: pointer;
 }
 
-.root-part:nth-of-type(even) {
-  border-top: 1px solid
+.root-part.underline {
+  border-bottom: 1px solid;
 }
 
-.root-part:nth-of-type(odd) {
-  border-bottom: 1px solid;
+.root-part.overline {
+  border-top: 1px solid;
 }
 
 .root-info.hide {
