@@ -20,5 +20,19 @@
         done(err);
       });
     });
+
+    it("gets a list of words", function(done) {
+      wordAPI.list()
+      .then(function(words) {
+        words.forEach(function(word) {
+          assert.ok(typeof word === "string");
+        });
+        done();
+      })
+      .catch(function(err) {
+        console.log(err);
+        done(err);
+      });
+    });
   });
 }());
