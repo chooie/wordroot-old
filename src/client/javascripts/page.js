@@ -3,7 +3,7 @@
 (function() {
   "use strict";
 
-  var wordPage = require("./ui/wordPage");
+  var wordPage = require("./ui/word/wordPage");
 
   function fillWordPage(appContainer, word) {
     var container = document.createElement("div");

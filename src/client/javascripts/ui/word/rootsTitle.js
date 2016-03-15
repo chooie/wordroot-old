@@ -3,8 +3,8 @@
 (function() {
   "use strict";
 
-  var util = require("./util");
-  var css = require("../constants").cssClasses;
+  var util = require("./../util");
+  var css = require("../../constants").cssClasses;
 
   function addRootParts(container, rootParts) {
     // rootParts { part: str, hasRoot: bool }

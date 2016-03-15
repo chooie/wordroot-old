@@ -3,11 +3,11 @@
 (function() {
   "use strict";
 
-  var assert = require("../../../shared/assert");
+  var assert = require("../../../../shared/assert");
 
   var wordPage = require("./wordPage");
-  var util = require("./util");
-  var testUtil = require("./testUtil");
+  var util = require("./../util");
+  var testUtil = require("./../testUtil");
 
   describe("Word Page", function() {
     var container;

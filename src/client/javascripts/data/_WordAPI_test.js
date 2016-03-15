@@ -5,7 +5,7 @@
 
   var assert = require("../../../shared/assert");
   var wordAPI = require("./WordAPI");
-  var testWords = require("./testWords");
+  var testWords = require("./dummy/testWords");
 
   describe("Word API", function() {
     it("gets a word", function(done) {

@@ -3,10 +3,10 @@
 (function() {
   "use strict";
 
-  var util = require("./util");
-  var css = require("../constants").cssClasses;
+  var util = require("./../util");
+  var css = require("../../constants").cssClasses;
   var rootsTitle = require("./rootsTitle");
-  var revealer = require("./revealer");
+  var revealer = require("./../revealer");
 
   function addTitle(container, rootParts, roots) {
     var options = { classes: [ css.container, "title" ] };

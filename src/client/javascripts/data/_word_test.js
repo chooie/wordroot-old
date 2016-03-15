@@ -5,7 +5,7 @@
 
   var assert = require("../../../shared/assert");
   var Word = require("./Word");
-  var testWord_somePartsHaveRoots = require("./testWord_somePartsHaveRoots");
+  var testWord_somePartsHaveRoots = require("./dummy/testWord_somePartsHaveRoots");
 
   describe("Word", function() {
     var wordObj;

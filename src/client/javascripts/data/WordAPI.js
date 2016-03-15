@@ -6,7 +6,7 @@
   var Q = require("../../../shared/promise");
 
   var Word = require("./Word");
-  var testWords = require("./testWords");
+  var testWords = require("./dummy/testWords");
 
   function make(word) {
     var deferred = Q.defer();

@@ -3,12 +3,12 @@
 (function() {
   "use strict";
 
-  var assert = require("../../../shared/assert");
+  var assert = require("../../../../shared/assert");
 
-  var util = require("./util");
-  var testUtil = require("./testUtil");
+  var util = require("./../util");
+  var testUtil = require("./../testUtil");
   var rootsTitle = require("./rootsTitle");
-  var constants = require("../constants");
+  var constants = require("../../constants");
 
   describe("Roots Title", function() {
     var container;
