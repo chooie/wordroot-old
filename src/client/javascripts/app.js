@@ -18,17 +18,22 @@
   function run(container) {
     wordAPI.list()
     .then(function(words) {
-      wordDirectory.addDirectory(container, words);
-      var pageContainer = document.getElementById("page");
-      var handler1 = setUpPage.bind(null, pageContainer, "thisisareallylongword");
-      var handler2 = setUpPage.bind(null, pageContainer, "autobiography");
       var router = new Router();
-      var routes = [
-        { name: "route1", handler: handler1 },
-        { name: "route2", handler: handler2 }
-      ];
+      var pageContainer = document.getElementById("page");
+      var routes = [];
+      words.forEach(function(word) {
+        var route = {
+          name: word,
+          handler: setUpPage.bind(null, pageContainer, word)
+        };
+        routes.push(route);
+      });
       router.initialise({ routes: routes });
-      router.navigateTo("route1");
+      wordDirectory.addDirectory(container, router);
+      router.navigateTo(words[0]);
+    })
+    .catch(function(err) {
+      console.log(err);
     });
   }
 

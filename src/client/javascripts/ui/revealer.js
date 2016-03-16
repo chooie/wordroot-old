@@ -3,6 +3,8 @@
 (function() {
   "use strict";
 
+  var listeners = require("./listeners");
+
   function initialise(clickElems, revealElems) {
     revealElems.forEach(function(reveal) {
       if (reveal) {
@@ -16,16 +18,9 @@
           showElement(clickElem, index, clickElems, revealElems);
         }
       });
-      preventDoubleClickHighlight(clickElem);
+      listeners.preventDoubleClickHighlight(clickElem);
 
-      function preventDoubleClickHighlight(elem) {
-        elem.addEventListener("dragstart", function(e) {
-          e.preventDefault();
-        });
-        elem.addEventListener("selectstart", function(e) {
-          e.preventDefault();
-        });
-      }
+
     });
   }
 
