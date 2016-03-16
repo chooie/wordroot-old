@@ -39,17 +39,18 @@
     element.parentNode.removeChild(element);
   }
 
-  function removeLoadingClass() {
-    var loadingClass = constants.cssClasses.loading;
-    var loadingElems = document.getElementsByClassName(loadingClass);
-    for (var i = 0; i < loadingElems.length; i += 1) {
-      loadingElems[i].classList.remove(loadingClass);
-    }
+  function addLoadingClass(elem) {
+    elem.classList.add(constants.cssClasses.loading);
+  }
+
+  function removeLoadingClass(elem) {
+    elem.classList.remove(constants.cssClasses.loading);
   }
 
   module.exports = {
     addElement: addElement,
     removeElement: removeElement,
+    addLoadingClass: addLoadingClass,
     removeLoadingClass: removeLoadingClass,
   };
 

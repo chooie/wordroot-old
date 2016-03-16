@@ -34,5 +34,22 @@
       router.navigateTo("route1");
       assert.ok(executed);
     });
+
+    it("executes a before and after method when navigating to a " +
+      "route", function() {
+      var beforeExecuted = false;
+      var afterExecuted = false;
+      var before = function() {
+        beforeExecuted = true;
+      };
+      var after = function() {
+        afterExecuted = true;
+      };
+      var routes = [ { name: "route1", handler: function() {} } ];
+      router.initialise({ routes: routes, before: before, after: after });
+      router.navigateTo("route1");
+      assert.ok(beforeExecuted, "Before method executed");
+      assert.ok(afterExecuted, "After method executed");
+    });
   });
 }());

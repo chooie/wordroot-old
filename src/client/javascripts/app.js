@@ -20,6 +20,7 @@
     .then(function(words) {
       var router = new Router();
       var pageContainer = document.getElementById("page");
+      var loadingContainer = document.getElementById("loading-main");
       var routes = [];
       words.forEach(function(word) {
         var route = {
@@ -28,7 +29,18 @@
         };
         routes.push(route);
       });
-      router.initialise({ routes: routes });
+      var startTime;
+      var before = function() {
+        startTime = Date.now();
+        uiUtil.addLoadingClass(loadingContainer);
+      };
+      var after = function() {
+        wait(calculateTimeToDelay(startTime, Date.now()))
+        .then(function() {
+          uiUtil.removeLoadingClass(loadingContainer);
+        });
+      };
+      router.initialise({ routes: routes, before: before, after: after });
       wordDirectory.addDirectory(container, router);
       router.navigateTo(words[0]);
     })
@@ -39,16 +51,11 @@
 
   function setUpPage(appContainer, wordId) {
     if (!appContainer) throw Error("No app element in page");
-    var startTime = Date.now();
     appContainer.innerHTML = "";
 
     wordAPI.make(wordId)
     .then(function(word) {
       page.fillWordPage(appContainer, word);
-      return wait(calculateTimeToDelay(startTime, Date.now()));
-    })
-    .then(function() {
-      uiUtil.removeLoadingClass();
     })
     .catch(function(err) {
       console.log(err);

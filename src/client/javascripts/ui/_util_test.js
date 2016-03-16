@@ -50,17 +50,17 @@
 
     it("hides loading elements", function() {
       var loadingClass = constants.cssClasses.loading;
-      createLoadingElement();
-
+      var elem = createLoadingElement();
       var loadingElements = document.getElementsByClassName(loadingClass);
       assert.ok(loadingElements.length > 0);
-      util.removeLoadingClass();
+      util.removeLoadingClass(elem);
       assert.ok(loadingElements.length === 0);
 
       function createLoadingElement() {
         var loading = document.createElement("div");
         loading.classList.add(loadingClass);
         container.appendChild(loading);
+        return loading;
       }
     });
   });

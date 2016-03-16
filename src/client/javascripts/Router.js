@@ -16,6 +16,8 @@
       }
     });
     this.routes = config.routes;
+    this.before = config.before;
+    this.after = config.after;
   };
 
   Router.prototype.getRoutes = function getRoutes() {
@@ -32,7 +34,9 @@
 
   Router.prototype.navigateTo = function navigateTo(routeName) {
     var route = this._getRoute(routeName);
+    if (this.before) this.before();
     route.handler();
+    if (this.after) this.after();
   };
 
   module.exports = Router;
