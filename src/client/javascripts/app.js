@@ -7,6 +7,7 @@
   var classList = require("../../../vendor/classList");
 
   var Router = require("./Router");
+  var wordDirectory = require("./ui/wordDirectory");
   var page = require("./page");
   var wordAPI = require("./data/WordAPI");
   var uiUtil = require("./ui/util");
@@ -14,17 +15,21 @@
 
   classList.shim();
 
-  function run(/*container*/) {
-    var pageContainer = document.getElementById("page");
-    var handler1 = setUpPage.bind(null, pageContainer, "thisisareallylongword");
-    var handler2 = setUpPage.bind(null, pageContainer, "autobiography");
-    var router = new Router();
-    var routes = [
-      { name: "route1", handler: handler1 },
-      { name: "route2", handler: handler2 }
-    ];
-    router.initialise({ routes: routes });
-    router.navigateTo("route1");
+  function run(container) {
+    wordAPI.list()
+    .then(function(words) {
+      wordDirectory.addDirectory(container, words);
+      var pageContainer = document.getElementById("page");
+      var handler1 = setUpPage.bind(null, pageContainer, "thisisareallylongword");
+      var handler2 = setUpPage.bind(null, pageContainer, "autobiography");
+      var router = new Router();
+      var routes = [
+        { name: "route1", handler: handler1 },
+        { name: "route2", handler: handler2 }
+      ];
+      router.initialise({ routes: routes });
+      router.navigateTo("route1");
+    });
   }
 
   function setUpPage(appContainer, wordId) {
