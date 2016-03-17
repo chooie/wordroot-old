@@ -21,7 +21,7 @@
       var router = new Router();
       var pageContainer = document.getElementById("page");
       var loadingContainer = document.getElementById("loading-main");
-      var navContainer = document.querySelector(".nav");
+      var navContainer = document.querySelector("#word-nav");
       var routes = [];
       words.forEach(function(word) {
         var route = {

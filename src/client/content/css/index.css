@@ -60,6 +60,26 @@
   font-size: 48px;
 }
 
+aside {
+  z-index: 10;
+  background-color: #1565C0;
+  width: 200px;
+  max-height: 100%;
+  overflow: scroll;
+  position: absolute;
+  /* This transform moves the drawer off canvas. */
+  -webkit-transform: translate(-300px, 0);
+  transform: translate(-300px, 0);
+  /* Optionally, we animate the drawer. */
+  transition: transform 0.3s ease;
+}
+
+aside.open {
+  /* This transform moves the drawer off canvas. */
+  -webkit-transform: translate(0px, 0);
+  transform: translate(0px, 0);
+}
+
 .directory-elem {
   display: block;
 }
