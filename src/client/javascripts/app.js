@@ -15,12 +15,13 @@
 
   classList.shim();
 
-  function run(container) {
+  function run(/*container*/) {
     wordAPI.list()
     .then(function(words) {
       var router = new Router();
       var pageContainer = document.getElementById("page");
       var loadingContainer = document.getElementById("loading-main");
+      var navContainer = document.querySelector(".nav");
       var routes = [];
       words.forEach(function(word) {
         var route = {
@@ -41,7 +42,7 @@
         });
       };
       router.initialise({ routes: routes, before: before, after: after });
-      wordDirectory.addDirectory(container, router);
+      wordDirectory.addDirectory(navContainer, router);
       router.navigateTo(words[0]);
     })
     .catch(function(err) {

@@ -21,7 +21,8 @@
 
     function createWordElem(container, word) {
       var options = { classes: [ "directory-elem" ] };
-      var elem = util.addElement(container, "p", options);
+      var elem = util.addElement(container, "a", options);
+      elem.setAttribute("href", "#" + word);
       elem.innerHTML = word;
       return elem;
     }

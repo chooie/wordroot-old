@@ -60,6 +60,15 @@
   font-size: 48px;
 }
 
+.directory-elem {
+  display: block;
+}
+
+.directory-elem:hover {
+  cursor: pointer;
+  color: #80D8FF;
+}
+
 .hide {
   display: none;
 }
