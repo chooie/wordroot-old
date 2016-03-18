@@ -13,42 +13,44 @@
 </head>
 <body>
 
-<nav>
-  <ul class="nav-links">
-    <li>
-      <a href="http://localhost:5000">WordRoot</a>
-    </li>
-  </ul>
-</nav>
+<div class="box">
+  <nav class="row header">
+    <ul class="nav-links">
+      <li>
+        <a href="http://localhost:5000">WordRoot</a>
+      </li>
+    </ul>
+  </nav>
 
-<main>
-  <div id="loading-main" class="hide loading loading-container">
-    <p class="loading-icon">
-      <span class="text">WordRoot</span>
-      <i class="fa fa-refresh fa-spin"></i>
-    </p>
-  </div>
-  <a id="menu" class="menu">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z"></path>
-    </svg>
-  </a>
-  <aside id="word-nav" class="word-nav"></aside>
-  <article id="page">
-    <!--<section class="heading">-->
+  <main class="row content">
+    <div id="loading-main" class="hide loading loading-container">
+      <p class="loading-icon">
+        <span class="text">WordRoot</span>
+        <i class="fa fa-refresh fa-spin"></i>
+      </p>
+    </div>
+    <a id="menu" class="menu">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z"></path>
+      </svg>
+    </a>
+    <aside id="word-nav" class="word-nav"></aside>
+    <article id="page" class="page">
+      <!--<section class="heading">-->
       <!--Heading Stuff -->
-    <!--</section>-->
-    <!--<section class="hero">-->
-       <!--Put Picture Here -->
-    <!--</section>-->
-  </article>
-</main>
+      <!--</section>-->
+      <!--<section class="hero">-->
+      <!--Put Picture Here -->
+      <!--</section>-->
+    </article>
+  </main>
 
-<footer>
-  <section class="footer-main">
-    <span class="copyright">&copy; Charles Hebert</span>
-  </section>
-</footer>
+  <footer class="row footer">
+    <section class="footer-main">
+      <span class="copyright">&copy; Charles Hebert</span>
+    </section>
+  </footer>
+</div>
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
