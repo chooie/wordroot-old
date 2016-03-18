@@ -16,6 +16,7 @@
   classList.shim();
 
   function run(/*container*/) {
+    initialise();
     wordAPI.list()
     .then(function(words) {
       var router = new Router();
@@ -50,13 +51,27 @@
     });
   }
 
-  function setUpPage(appContainer, wordId) {
-    if (!appContainer) throw Error("No app element in page");
-    appContainer.innerHTML = "";
+  function initialise() {
+    var menu = document.querySelector('#menu'),
+      main = document.querySelector('body'),
+      drawer = document.querySelector('#word-nav');
+
+    menu.addEventListener('click', function(e) {
+      drawer.classList.toggle('open');
+      e.stopPropagation();
+    });
+    main.addEventListener('click', function() {
+      drawer.classList.remove('open');
+    });
+  }
+
+  function setUpPage(container, wordId) {
+    if (!container) throw Error("No container element");
+    container.innerHTML = "";
 
     wordAPI.make(wordId)
     .then(function(word) {
-      page.fillWordPage(appContainer, word);
+      page.fillWordPage(container, word);
     })
     .catch(function(err) {
       console.log(err);

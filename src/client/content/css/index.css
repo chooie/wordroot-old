@@ -1,30 +1,96 @@
-#app {
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+/* apply a natural box layout model to all elements, but allowing components
+ to change */
+html {
+  box-sizing: border-box;
+  /*background: #90CAF9;*/
+}
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
-.nav {
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 3em;
+}
+
+h2 {
+  font-size: 2em;
+}
+
+.hide {
+  display: none;
+}
+
+.container {
+  padding: 20px;
+}
+
+.box-element {
+  width: 100%;
   text-align: center;
-  background: #0091EA;
-  border-top: 5px solid #0091EA;
+  border: solid #2196F3 1px;
+}
+
+/*==============================================================================
+ * Nav Bar
+ *============================================================================*/
+
+.menu {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  padding-right: 10px;
+}
+
+.menu svg {
+  width: 32px;
+  fill: #212121;
+}
+
+nav {
+  width: 100%;
+  height: 50px;
+  background: #01579B;
   border-bottom: 5px solid #80D8FF;
 }
 
-.nav .container {
-  margin: 5px;
+.nav-links {
+  padding: 0;
+  margin: 0 auto;
 }
 
-.nav-title {
-  color: #80D8FF;
-  font-size: 48px;
+.nav-links li {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 50px;
+  padding: 0 10px;
 }
 
-.nav-title:hover {
-  color: #40C4FF;
+a {
+  text-decoration: none;
+  color: #BBDEFB
 }
 
-.loading.hide {
+a:hover {
+  color: #F44336;
+}
+
+a:visited {
+  /*nothing*/
+}
+
+/*==============================================================================
+ * Loading
+ *============================================================================*/
+
+.loading {
+  z-index: 99;
   display: block;
-  position: fixed;
+  position: absolute;
   padding: 0;
   margin: 0;
 
@@ -35,10 +101,6 @@
   height: 100%;
 
   background: #0091EA;
-}
-
-.container {
-  padding: 5px;
 }
 
 .loading-icon {
@@ -60,7 +122,19 @@
   font-size: 48px;
 }
 
-aside {
+/*==============================================================================
+ * Main
+ *============================================================================*/
+
+main {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+main aside {
   z-index: 10;
   background-color: #1565C0;
   width: 200px;
@@ -74,23 +148,48 @@ aside {
   transition: transform 0.3s ease;
 }
 
-aside.open {
+main aside.open {
   /* This transform moves the drawer off canvas. */
   -webkit-transform: translate(0px, 0);
   transform: translate(0px, 0);
 }
 
-.directory-elem {
+aside.word-nav {
+  padding-right: 10px;
+}
+
+main article {
+  width: 100%;
+  background-color: #2196F3;
+}
+
+.hero {
   display: block;
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+  padding: 20px;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+/*==============================================================================
+ * MISC
+ *============================================================================*/
+
+.directory-elem {
+  color: #FFFFFF;
+  padding: 5px 10px;
+  margin: 10px 0;
+  border-bottom: solid 1px white;
 }
 
 .directory-elem:hover {
   cursor: pointer;
   color: #80D8FF;
-}
-
-.hide {
-  display: none;
 }
 
 .title {
@@ -105,7 +204,7 @@ aside.open {
 }
 
 .root-part {
-  display: inline-block;
+  /* nothing */
 }
 
 .root-part.active {
@@ -138,9 +237,62 @@ aside.open {
   border-bottom: 3px solid #4CAF50;
 }
 
-@media only screen and (min-width: 500px) {
-  #app {
-    margin: 0 auto;
-    max-width: 500px;
+/*==============================================================================
+ * Footer
+ *============================================================================*/
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  border-top: 5px solid #80D8FF;
+  background: #01579B;
+}
+
+.footer-main {
+  margin: 10px auto;
+  color: #FFFFFF;
+}
+
+.footer-main .copyright {
+  line-height: 1.8;
+  margin-left: 10px;
+}
+
+/*==============================================================================
+ * Media Queries
+ *============================================================================*/
+
+@media screen and (min-width: 800px) {
+  .nav-links {
+    width: 800px;
+  }
+
+  .nav-links li {
+    text-align: left;
+  }
+
+  .menu {
+    display: none;
+  }
+
+  main aside {
+    position: relative;
+    /* This transform moves the drawer off canvas. */
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+
+  main article {
+    width :600px;
+  }
+
+  main {
+    width: 800px;
+  }
+
+  .footer-main {
+    width: 800px;
   }
 }

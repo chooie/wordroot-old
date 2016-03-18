@@ -5,11 +5,11 @@
 
   var wordPage = require("./ui/word/wordPage");
 
-  function fillWordPage(appContainer, word) {
-    var container = document.createElement("div");
-    wordPage.addTitle(container, word.getRootParts(), word.getRoots());
-    wordPage.addMeaning(container, word.getMeaning());
-    appContainer.appendChild(container);
+  function fillWordPage(outerContainer, word) {
+    var innerContainer = document.createElement("div");
+    wordPage.addTitle(innerContainer, word.getRootParts(), word.getRoots());
+    wordPage.addMeaning(innerContainer, word.getMeaning());
+    outerContainer.appendChild(innerContainer);
   }
 
   module.exports = {
