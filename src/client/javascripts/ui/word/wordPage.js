@@ -28,7 +28,7 @@
     var classes = [ css.container, "video-row" ];
     var div = util.addElement(container, "div", { classes: classes });
 
-    var video = makeVideo(div, word);
+    makeVideo(div, word);
 
     return div;
 
@@ -41,7 +41,7 @@
   }
 
   function addAudio(container, word) {
-    var classes = [ css.container, "audio-row" ]
+    var classes = [ css.container, "audio-row" ];
     var div = util.addElement(container, "div", { classes: classes });
     var sayLabel = util.addElement(div, "div", { classes: [ "label" ] });
     sayLabel.innerHTML = "Say Word";
