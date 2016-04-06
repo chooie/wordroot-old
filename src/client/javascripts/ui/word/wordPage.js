@@ -35,7 +35,8 @@
     function makeVideo(container, word) {
       var video = util.addElement(container, "video", { classes: [ "video" ] });
       video.setAttribute("src", "content/videos/" + word + ".mp4");
-      video.setAttribute("controls", true);
+      video.setAttribute("autoplay", true);
+      video.setAttribute("loop", true);
       return video;
     }
   }
