@@ -8,7 +8,7 @@
   var testWords = require("./dummy/testWords");
 
   describe("Word API", function() {
-    it("gets a word", function(done) {
+    it.skip("gets a word", function(done) {
       var testWord = testWords[0].word;
       wordAPI.make(testWord)
       .then(function(word) {
@@ -21,7 +21,7 @@
       });
     });
 
-    it("gets a list of words", function(done) {
+    it.skip("gets a list of words", function(done) {
       wordAPI.list()
       .then(function(words) {
         words.forEach(function(word) {

@@ -40,7 +40,7 @@
         var words = [];
 
         rows.forEach(function(row) {
-          words.push(row.queryWordInfo);
+          words.push(row.word);
         });
 
         res.send(words);

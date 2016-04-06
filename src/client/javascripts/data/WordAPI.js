@@ -6,41 +6,55 @@
   var Q = require("../../../shared/promise");
 
   var Word = require("./Word");
-  var testWords = require("./dummy/testWords");
 
   function make(word) {
     var deferred = Q.defer();
     if (!word) {
       deferred.reject(new Error("Must provide word id"));
     } else {
-      // TODO: Replace fake async call for real implementation
-      var index = getIndexOfWord(word, testWords);
-      var wordObj = new Word(testWords[index]);
-      setTimeout(function() {
-        deferred.resolve(wordObj);
-      }, 0);
+      var request = new XMLHttpRequest();
+      request.open("GET", "/word/" + word, true);
+
+      request.onload = function() {
+        if (request.status >= 200 && request.status < 400) {
+          // Success!
+          var data = JSON.parse(request.responseText);
+          var wordObj = new Word(data);
+          deferred.resolve(wordObj);
+        } else {
+          // We reached our target server, but it returned an error
+        }
+      };
+
+      request.onerror = function() {
+        // There was a connection error of some sort
+      };
+
+      request.send();
     }
     return deferred.promise;
-
-    function getIndexOfWord(word, words) {
-      for (var i = 0; i < words.length; i += 1) {
-        if (words[i].word === word) {
-          return i;
-        }
-      }
-      throw new WordNotFoundError(word);
-    }
   }
 
   function list() {
     var deferred = Q.defer();
-    setTimeout(function() {
-      var words = [];
-      testWords.forEach(function(word) {
-        words.push(word.word);
-      });
-      deferred.resolve(words);
-    }, 0);
+    var request = new XMLHttpRequest();
+    request.open("GET", "/words", true);
+
+    request.onload = function() {
+      if (request.status >= 200 && request.status < 400) {
+        // Success!
+        var data = JSON.parse(request.responseText);
+        deferred.resolve(data);
+      } else {
+        // We reached our target server, but it returned an error
+      }
+    };
+
+    request.onerror = function() {
+      // There was a connection error of some sort
+    };
+
+    request.send();
     return deferred.promise;
   }
 
