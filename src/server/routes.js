@@ -200,7 +200,7 @@
             word: wordObj.roots[i].word,
             meaning: wordObj.roots[i].meaning,
             language: wordObj.languages[i]
-          }
+          };
         }
         preparedWord.roots.push(rootEntry);
       });
@@ -208,7 +208,7 @@
     } catch(err) {
       console.log(err);
     }
-  };
+  }
 
   module.exports = {
     registerRoutes: registerRoutes
