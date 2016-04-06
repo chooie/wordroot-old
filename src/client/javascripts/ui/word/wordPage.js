@@ -43,10 +43,14 @@
   function addAudio(container, word) {
     var classes = [ css.container, "audio-row" ]
     var div = util.addElement(container, "div", { classes: classes });
+    var sayLabel = util.addElement(div, "div", { classes: [ "label" ] });
+    sayLabel.innerHTML = "Say Word";
     var audioClasses = [ "audio" ];
     var audioSay = util.addElement(div, "audio", { classes: audioClasses});
     audioSay.setAttribute("src", "content/audio/say/" + word + ".mp3");
     audioSay.setAttribute("controls", true);
+    var talkLabel = util.addElement(div, "div", { classes: [ "label" ] });
+    talkLabel.innerHTML = "Story about Word";
     var audioTalk = util.addElement(div, "audio", { classes: audioClasses});
     audioTalk.setAttribute("src", "content/audio/talk/" + word + ".mp3");
     audioTalk.setAttribute("controls", true);

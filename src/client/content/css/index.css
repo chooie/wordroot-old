@@ -290,6 +290,10 @@ img {
   border-bottom: 3px solid #2196F3;
 }
 
+.audio-row .label {
+  text-align: left;
+}
+
 .audio {
   width: 100%;
 }
