@@ -11,6 +11,12 @@
     if (!info) throw new Error("Must provide an info object");
 
     this.info = info;
+
+    this.getWord = function() {
+      var word = this.info.word;
+      return word;
+    };
+
     this.getMeaning = function() {
       var meaning = this.info.meaning;
       return util.capitalizeFirstLetter(meaning);

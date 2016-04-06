@@ -24,9 +24,40 @@
     return div;
   }
 
+  function addVideo(container, word) {
+    var classes = [ css.container, "video-row" ];
+    var div = util.addElement(container, "div", { classes: classes });
+
+    var video = makeVideo(div, word);
+
+    return div;
+
+    function makeVideo(container, word) {
+      var video = util.addElement(container, "video", { classes: [ "video" ] });
+      video.setAttribute("src", "content/videos/" + word + ".mp4");
+      video.setAttribute("controls", true);
+      return video;
+    }
+  }
+
+  function addAudio(container, word) {
+    var classes = [ css.container, "audio-row" ]
+    var div = util.addElement(container, "div", { classes: classes });
+    var audioClasses = [ "audio" ];
+    var audioSay = util.addElement(div, "audio", { classes: audioClasses});
+    audioSay.setAttribute("src", "content/audio/say/" + word + ".mp3");
+    audioSay.setAttribute("controls", true);
+    var audioTalk = util.addElement(div, "audio", { classes: audioClasses});
+    audioTalk.setAttribute("src", "content/audio/talk/" + word + ".mp3");
+    audioTalk.setAttribute("controls", true);
+    return div;
+  }
+
   module.exports = {
     addTitle: addTitle,
-    addMeaning: addMeaning
+    addMeaning: addMeaning,
+    addVideo: addVideo,
+    addAudio: addAudio
   };
 
 }());

@@ -204,6 +204,12 @@ img {
   height: auto;
 }
 
+.video {
+  display: block;
+  width: 75%;
+  margin: 0 auto;
+}
+
 /*==============================================================================
  * MISC
  *============================================================================*/
@@ -263,6 +269,21 @@ img {
   text-align: center;
   background: #C8E6C9;
   border-bottom: 3px solid #4CAF50;
+}
+
+.video-row {
+  background: #FFCDD2;
+  border-bottom: 3px solid #F44336;
+}
+
+.audio-row {
+  text-align: center;
+  background: #BBDEFB;
+  border-bottom: 3px solid #2196F3;
+}
+
+.audio {
+  width: 100%;
 }
 
 /*==============================================================================

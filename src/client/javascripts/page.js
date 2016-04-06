@@ -9,6 +9,8 @@
     var innerContainer = document.createElement("div");
     wordPage.addTitle(innerContainer, word.getRootParts(), word.getRoots());
     wordPage.addMeaning(innerContainer, word.getMeaning());
+    wordPage.addVideo(innerContainer, word.getWord());
+    wordPage.addAudio(innerContainer, word.getWord());
     outerContainer.appendChild(innerContainer);
   }
 
