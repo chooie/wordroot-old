@@ -5,6 +5,8 @@
 
   var db = require("./db");
 
+  var Q = require("q");
+
   function connectToDB() {
     var connection = db.createConnection({
       host: "localhost",
@@ -38,7 +40,7 @@
         var words = [];
 
         rows.forEach(function(row) {
-          words.push(row.word);
+          words.push(row.queryWordInfo);
         });
 
         res.send(words);
@@ -47,74 +49,165 @@
 
     app.get("/word/:word", function(req, res) {
       var connection = connectToDB();
-      var word = req.params.word;
+      queryWordInfo(req, connection)
+      .then(function(wordObj) {
+        return queryWordParts(connection, wordObj);
+      })
+      .then(function(wordObj) {
+        return queryRootIds(connection, wordObj);
+      })
+      .then(function(wordObj) {
+        return queryRoots(connection, wordObj);
+      })
+      .then(function(wordObj) {
+        return queryLanguages(connection, wordObj);
+      })
+      .then(function(wordObj) {
+        res.send(prepareWordInfo(wordObj));
+      })
+      .fail(function(err) {
+        throw err;
+      });
+    });
 
+    function queryWordInfo(req, connection) {
+      var deferred = Q.defer();
+      var word = req.params.word;
       word = connection.escape(word);
 
       connection.query("SELECT * FROM words " +
         "WHERE word = " + word, function(err, rows) {
-        if (err) throw err;
+        if (err) deferred.reject(err);
+        deferred.resolve(rows[0]);
+      });
 
-        var wordObj = rows[0];
+      return deferred.promise;
+    }
+  };
 
-        var wordId = connection.escape(wordObj.id);
+  function queryWordParts(connection, wordObj) {
+    var deferred = Q.defer();
+    var id = connection.escape(wordObj.id);
+    connection.query("SELECT id, part FROM word_parts " +
+      "WHERE word_id = " + id + " " +
+      "ORDER BY position_index", function(err, parts) {
+      wordObj.parts = parts;
+      deferred.resolve(wordObj);
+    });
+    return deferred.promise;
+  }
 
-        connection.query("SELECT id, part FROM word_parts " +
-          "WHERE word_id = " + wordId + " " +
-          "ORDER BY position_index", function(err, wordParts) {
+  function queryRootIds(connection, wordObj) {
+    var deferred = Q.defer();
 
-          var parts = [];
-          var rootIds = [];
-          var roots = [];
-          wordParts.forEach(function(wordPart, i) {
-            parts.push(wordPart.part);
+    var rootQueryPromises = [];
 
-            connection.query("SELECT root_id FROM word_parts_roots " +
-              "WHERE word_part_id = " + wordPart.id, function(err, rootId) {
-              rootIds.push(rootId[0] && rootId[0].root_id);
-
-              if (i === wordParts.length - 1) {
-                rootIds.forEach(function(rootId, j) {
-                  connection.query("SELECT * FROM roots " +
-                    "WHERE id = " + rootId, function(err, root) {
-                    roots.push(root && root[0]);
-
-                    if (j === rootIds.length - 1) {
-                      var languages = [];
-                      roots.forEach(function(root, i) {
-                        connection.query("SELECT name FROM languages " +
-                          "WHERE id = " +
-                          root.language_id, function(err, lang) {
-                          languages.push(lang[0].name);
-
-                          if (i === roots.length - 1) {
-                            roots.forEach(function(root, i) {
-                              roots[i] = {
-                                word: root.word,
-                                meaning: root.meaning,
-                                language: languages[i]
-                              };
-                            });
-                            wordObj.roots = [];
-                            parts.forEach(function(part, i) {
-                              wordObj.roots[i] = {
-                                part: parts[i],
-                                root: roots[i]
-                              };
-                            });
-                            res.send(wordObj);
-                          }
-                        });
-                      });
-                    }
-                  });
-                });
-              }
-            });
-          });
+    wordObj.parts.forEach(function(part) {
+      var promise = Q.Promise(function(resolve, reject) {
+        connection.query("SELECT * FROM word_parts_roots " +
+          "WHERE word_part_id = " + part.id, function(err, rootId) {
+          if (err) reject(err);
+          if (!rootId[0]) {
+            resolve(null);
+          } else {
+            resolve(rootId[0]);
+          }
         });
       });
+      rootQueryPromises.push(promise);
     });
+
+    Q.all(rootQueryPromises).then(function(roots) {
+      wordObj.rootIds = roots;
+      deferred.resolve(wordObj);
+    });
+
+    return deferred.promise;
+  }
+
+  function queryRoots(connection, wordObj) {
+    var deferred = Q.defer();
+
+    var rootQueryPromises = [];
+    wordObj.rootIds.forEach(function(rootId) {
+      var promise = Q.Promise(function(resolve, reject) {
+        if (!rootId) return resolve(null);
+        connection.query("SELECT * FROM roots " +
+          "WHERE id = " + rootId.root_id, function(err, root) {
+          if (err) {
+            reject(err);
+          }
+          if (!root[0]) {
+            resolve(null);
+          } else {
+            resolve(root[0]);
+          }
+        });
+      });
+      rootQueryPromises.push(promise);
+    });
+
+    Q.all(rootQueryPromises)
+      .then(function(roots) {
+        wordObj.roots = roots;
+        deferred.resolve(wordObj);
+      });
+
+    return deferred.promise;
+  }
+
+  function queryLanguages(connection, wordObj) {
+    var deferred = Q.defer();
+    var languageQueryPromises = [];
+    wordObj.roots.forEach(function(root) {
+      var promise = Q.Promise(function(resolve, reject) {
+        if (!root) return resolve(null);
+        connection.query("SELECT * FROM languages " +
+          "WHERE id = " + root.language_id, function(err, language) {
+          if (err) {
+            reject(err);
+          }
+          if (!language[0]) {
+            resolve(null);
+          } else {
+            resolve(language[0].name);
+          }
+        });
+      });
+      languageQueryPromises.push(promise);
+    });
+
+    Q.all(languageQueryPromises)
+      .then(function(languages) {
+        wordObj.languages = languages;
+        deferred.resolve(wordObj);
+      });
+
+    return deferred.promise;
+  }
+
+  function prepareWordInfo(wordObj) {
+    try {
+      var preparedWord = {};
+      preparedWord.word = wordObj.word;
+      preparedWord.meaning = wordObj.meaning;
+      preparedWord.roots = [];
+      wordObj.parts.forEach(function(part, i) {
+        var rootEntry = { part: part.part };
+        var root = wordObj.roots[i];
+        if (root) {
+          rootEntry.root = {
+            word: wordObj.roots[i].word,
+            meaning: wordObj.roots[i].meaning,
+            language: wordObj.languages[i]
+          }
+        }
+        preparedWord.roots.push(rootEntry);
+      });
+      return preparedWord;
+    } catch(err) {
+      console.log(err);
+    }
   };
 
   module.exports = {
