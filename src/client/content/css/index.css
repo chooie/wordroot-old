@@ -238,8 +238,10 @@ img {
 }
 
 .label {
+  display: inline-block;
   font-weight: bold;
   font-size: 24px;
+  width: 100%;
 }
 
 .root-part {
@@ -305,6 +307,7 @@ img {
 
 footer {
   position: fixed;
+  z-index: 999;
   bottom: 0;
   left: 0;
   width: 100%;
@@ -349,6 +352,20 @@ footer {
 
   main article {
     width :600px;
+  }
+
+  .root-info div {
+    display: inline-block;
+    padding: 0 5px;
+    width: 50%;
+  }
+
+  .root-info div:nth-child(2n) {
+    text-align: left;
+  }
+
+  .root-info div:nth-child(2n + 1) {
+    text-align: right;
   }
 
   main {
