@@ -13,7 +13,7 @@
       deferred.reject(new Error("Must provide word id"));
     } else {
       var request = new XMLHttpRequest();
-      request.open("GET", "/word/" + word, true);
+      request.open("GET", "/words/" + word, true);
 
       request.onload = function() {
         if (request.status >= 200 && request.status < 400) {

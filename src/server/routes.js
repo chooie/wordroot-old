@@ -47,7 +47,7 @@
       });
     });
 
-    app.get("/word/:word", function(req, res) {
+    app.get("/words/:word", function(req, res) {
       var connection = connectToDB();
       queryWordInfo(req, connection)
       .then(function(wordObj) {
