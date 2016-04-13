@@ -6,11 +6,10 @@
   var util = require("../util");
 
   function addAudioContent(container, srcAttr, labelText) {
-    var audioState = { playing: false };
     addAudioLabel(container, labelText);
     var audioElem = addAudioElem(container, srcAttr);
     var audioUIControl = addAudioUIControl(container);
-    audioController(audioState, audioUIControl, audioElem);
+    audioController(audioUIControl, audioElem);
 
     function addAudioLabel(container, labelText) {
       var options = { classes: [ "label" ] };
@@ -33,34 +32,31 @@
     }
   }
 
-  function audioController(audioState, audioUIControl, audioElem) {
+  function audioController(audioUIControl, audioElem) {
     audioUIControl.addEventListener(
       "click",
-      clickHandler.bind(null, audioState, audioElem, audioUIControl)
+      clickHandler.bind(null, audioElem, audioUIControl)
     );
 
     audioElem.addEventListener("ended", function() {
-      audioState.playing = false;
       console.log("SHOW PLAY ICON");
     });
   }
 
-  function clickHandler(audioState, audioElem) {
-    if (audioState.playing) {
-      pause(audioElem, audioState);
+  function clickHandler(audioElem) {
+    if (!audioElem.paused) {
+      pause(audioElem);
     } else {
-      play(audioElem, audioState);
+      play(audioElem);
     }
   }
 
-  function pause(audioElem, audioState) {
+  function pause(audioElem) {
     audioElem.pause();
-    audioState.playing = false;
     console.log("SHOW PLAY ICON");
   }
-  function play(audioElem, audioState) {
+  function play(audioElem) {
     audioElem.play();
-    audioState.playing = true;
     console.log("SHOW PAUSE ICON");
   }
 
