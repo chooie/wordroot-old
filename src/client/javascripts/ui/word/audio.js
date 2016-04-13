@@ -5,6 +5,8 @@
 
   var util = require("../util");
 
+  var UI_CONTROL_BASE_CLASSES = [ "fa", "fa-3x" ];
+
   function addAudioContent(container, srcAttr, labelText) {
     addAudioLabel(container, labelText);
     var audioElem = addAudioElem(container, srcAttr);
@@ -26,10 +28,27 @@
     }
 
     function addAudioUIControl(container) {
-      var options = { classes: [ "fa", "fa-3x", "fa-play-circle" ] };
+      var classes = UI_CONTROL_BASE_CLASSES.slice();
+      classes.push("fa-play-circle");
+      var options = { classes: classes };
       var audioUIControlElem = util.addElement(container, "div", options);
       return audioUIControlElem;
     }
+  }
+
+  function setUIState(uiControl, state) {
+    var classes = {
+      "playing": "fa-pause-circle",
+      "paused": "fa-play-circle"
+    };
+
+    var classKeys = Object.keys(classes);
+
+    classKeys.forEach(function(key) {
+      uiControl.classList.remove(classes[key]);
+    });
+
+    uiControl.classList.add(classes[state]);
   }
 
   function audioController(audioUIControl, audioElem) {
@@ -39,25 +58,25 @@
     );
 
     audioElem.addEventListener("ended", function() {
-      console.log("SHOW PLAY ICON");
+      setUIState(audioUIControl, "paused");
     });
   }
 
-  function clickHandler(audioElem) {
+  function clickHandler(audioElem, audioUIControl) {
     if (!audioElem.paused) {
-      pause(audioElem);
+      pause(audioElem, audioUIControl);
     } else {
-      play(audioElem);
+      play(audioElem, audioUIControl);
     }
   }
 
-  function pause(audioElem) {
+  function pause(audioElem, audioUIControl) {
     audioElem.pause();
-    console.log("SHOW PLAY ICON");
+    setUIState(audioUIControl, "paused");
   }
-  function play(audioElem) {
+  function play(audioElem, audioUIControl) {
     audioElem.play();
-    console.log("SHOW PAUSE ICON");
+    setUIState(audioUIControl, "playing");
   }
 
   module.exports = {
