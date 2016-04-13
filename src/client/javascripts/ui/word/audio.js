@@ -7,10 +7,10 @@
 
   function addAudioContent(container, srcAttr, labelText) {
     var audioState = { playing: false };
-    var audioLabel = addAudioLabel(container, labelText);
+    addAudioLabel(container, labelText);
     var audioElem = addAudioElem(container, srcAttr);
-    addListeners(audioState, audioLabel, audioElem);
-    return audioLabel;
+    var audioUIControl = addAudioUIControl(container);
+    audioController(audioState, audioUIControl, audioElem);
 
     function addAudioLabel(container, labelText) {
       var options = { classes: [ "label" ] };
@@ -25,12 +25,18 @@
       audioElem.setAttribute("src", srcAttr);
       return audioElem;
     }
+
+    function addAudioUIControl(container) {
+      var options = { classes: [ "fa", "fa-3x", "fa-play-circle" ] };
+      var audioUIControlElem = util.addElement(container, "div", options);
+      return audioUIControlElem;
+    }
   }
 
-  function addListeners(audioState, audioLabel, audioElem) {
-    audioLabel.addEventListener(
+  function audioController(audioState, audioUIControl, audioElem) {
+    audioUIControl.addEventListener(
       "click",
-      clickHandler.bind(null, audioState, audioElem)
+      clickHandler.bind(null, audioState, audioElem, audioUIControl)
     );
 
     audioElem.addEventListener("ended", function() {
