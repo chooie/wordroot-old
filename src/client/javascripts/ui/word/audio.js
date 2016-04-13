@@ -6,31 +6,56 @@
   var util = require("../util");
 
   function addAudioContent(container, srcAttr, labelText) {
-    var audioLabel = util.addElement(container, "div",
-      { classes: ["label"] });
-    audioLabel.innerHTML = labelText;
-    var audioClasses = [ "audio" ];
-    var audioElem = util.addElement(container, "audio",
-      { classes: audioClasses });
-    audioElem.setAttribute("src", srcAttr);
-    var playing = false;
-    audioLabel.addEventListener("click", function() {
-      if (playing) {
-        audioElem.pause();
-        playing = false;
-        console.log("SHOW PLAY ICON");
-        return;
-      }
-      audioElem.play();
-      playing = true;
-      console.log("SHOW PAUSE ICON");
-    });
+    var audioState = { playing: false };
+    var audioLabel = addAudioLabel(container, labelText);
+    var audioElem = addAudioElem(container, srcAttr);
+    addListeners(audioState, audioLabel, audioElem);
+    return audioLabel;
+
+    function addAudioLabel(container, labelText) {
+      var options = { classes: [ "label" ] };
+      var audioLabel = util.addElement(container, "div", options);
+      audioLabel.innerHTML = labelText;
+      return audioLabel;
+    }
+
+    function addAudioElem(container, srcAttr) {
+      var options = { classes: [ "audio" ] };
+      var audioElem = util.addElement(container, "audio", options);
+      audioElem.setAttribute("src", srcAttr);
+      return audioElem;
+    }
+  }
+
+  function addListeners(audioState, audioLabel, audioElem) {
+    audioLabel.addEventListener(
+      "click",
+      clickHandler.bind(null, audioState, audioElem)
+    );
 
     audioElem.addEventListener("ended", function() {
-      playing = false;
+      audioState.playing = false;
       console.log("SHOW PLAY ICON");
     });
-    return audioLabel;
+  }
+
+  function clickHandler(audioState, audioElem) {
+    if (audioState.playing) {
+      pause(audioElem, audioState);
+    } else {
+      play(audioElem, audioState);
+    }
+  }
+
+  function pause(audioElem, audioState) {
+    audioElem.pause();
+    audioState.playing = false;
+    console.log("SHOW PLAY ICON");
+  }
+  function play(audioElem, audioState) {
+    audioElem.play();
+    audioState.playing = true;
+    console.log("SHOW PAUSE ICON");
   }
 
   module.exports = {
