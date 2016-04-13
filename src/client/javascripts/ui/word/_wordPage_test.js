@@ -55,6 +55,11 @@
       wordPage.addMeaning(container, MEANING);
       testUtil.assertStringInElement(container, MEANING);
     });
+
+    it("puts audio", function() {
+      var WORD = "TEST WORD";
+      wordPage.addAudio(container, WORD);
+    });
   });
 
 }());

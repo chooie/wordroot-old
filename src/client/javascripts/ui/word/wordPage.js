@@ -7,6 +7,7 @@
   var css = require("../../constants").cssClasses;
   var rootsTitle = require("./rootsTitle");
   var revealer = require("./../revealer");
+  var audio = require("./audio");
 
   function addTitle(container, rootParts, roots) {
     var options = { classes: [ css.container, "title" ] };
@@ -46,22 +47,11 @@
     var div = util.addElement(container, "div", { classes: classes });
 
     var srcAttrSay = "content/audio/say/" + word + ".mp3";
-    addAudioContent(div, srcAttrSay, "Say Word");
+    audio.addAudioContent(div, srcAttrSay, "Say Word");
 
     var srcAttrTalk = "content/audio/talk/" + word + ".mp3";
-    addAudioContent(div, srcAttrTalk, "Story about word");
+    audio.addAudioContent(div, srcAttrTalk, "Story about word");
     return div;
-
-    function addAudioContent(container, srcAttr, labelText) {
-      var audioLabel = util.addElement(container, "div", { classes: ["label"] });
-      audioLabel.innerHTML = labelText;
-      var audioClasses = [ "audio" ];
-      var audioElem = util.addElement(container, "audio",
-        { classes: audioClasses });
-      audioElem.setAttribute("src", srcAttr);
-      audioElem.setAttribute("controls", true);
-      return audioLabel;
-    }
   }
 
   module.exports = {
