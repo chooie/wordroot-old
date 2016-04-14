@@ -3,6 +3,8 @@
 (function() {
   "use strict";
 
+  var fs = require("fs");
+
   var util = require("./util");
   var wordsRequestHandlers = require("./wordsRequestHandlers");
 
@@ -23,6 +25,19 @@
     app.get("/words", wordsRequestHandlers.list);
 
     app.get("/words/:word", wordsRequestHandlers.wordInfo);
+
+    app.get("/videos/:word", function(req, res) {
+      var filePath = "static/videos/" + req.params.word + ".mp4";
+      var stat = fs.statSync(filePath);
+      var file = fs.readFile(filePath, 'binary', function(err, data) {
+        if (err) throw err;
+
+        res.setHeader('Content-Length', stat.size);
+        res.setHeader('Content-Type', 'video/mp4');
+        res.write(data, 'binary');
+        res.end();
+      });
+    });
   }
 
   module.exports = {
