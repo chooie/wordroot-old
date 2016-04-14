@@ -52,7 +52,7 @@
     audio.addAudioContent(audioContainerSay, srcAttrSay, "Say word");
 
     var audioContainerTalk = util.addElement(div, "div", audioContainerOptions);
-    var srcAttrTalk = "content/audio/talk/" + word + ".mp3";
+    var srcAttrTalk = "/audio/talk/" + word;
     audio.addAudioContent(audioContainerTalk, srcAttrTalk, "Story about word");
     return div;
   }

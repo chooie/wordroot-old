@@ -51,6 +51,19 @@
         res.end();
       });
     });
+
+    app.get("/audio/talk/:word", function(req, res) {
+      var filePath = "static/audio/talk/" + req.params.word + ".mp3";
+      var stat = fs.statSync(filePath);
+      fs.readFile(filePath, 'binary', function(err, data) {
+        if (err) throw err;
+
+        res.setHeader('Content-Length', stat.size);
+        res.setHeader('Content-Type', 'audio/mp3');
+        res.write(data, 'binary');
+        res.end();
+      });
+    });
   }
 
   module.exports = {
