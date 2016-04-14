@@ -130,6 +130,22 @@ a:visited {
   background: #0091EA;
 }
 
+.showing-error {
+  z-index: 99;
+  display: block;
+  position: absolute;
+  padding: 0;
+  margin: 0;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background: #ea0c00;
+}
+
 .loading-icon {
   position: relative;
   text-align: center;

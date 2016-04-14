@@ -26,8 +26,8 @@
         }
       };
 
-      request.onerror = function() {
-        // There was a connection error of some sort
+      request.onerror = function(err) {
+        deferred.reject("Failed to connect");
       };
 
       request.send();

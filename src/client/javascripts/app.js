@@ -52,16 +52,16 @@
   }
 
   function initialise() {
-    var menu = document.querySelector('#menu'),
-      main = document.querySelector('body'),
-      drawer = document.querySelector('#word-nav');
+    var menu = document.querySelector("#menu"),
+      main = document.querySelector("body"),
+      drawer = document.querySelector("#word-nav");
 
-    menu.addEventListener('click', function(e) {
-      drawer.classList.toggle('open');
+    menu.addEventListener("click", function(e) {
+      drawer.classList.toggle("open");
       e.stopPropagation();
     });
-    main.addEventListener('click', function() {
-      drawer.classList.remove('open');
+    main.addEventListener("click", function() {
+      drawer.classList.remove("open");
     });
   }
 
@@ -75,7 +75,8 @@
     })
     .catch(function(err) {
       console.log(err);
-      // TODO: Add an error message to UI
+      var errorContainer = document.getElementById("error-main");
+      errorContainer.classList.add("showing-error");
     });
   }
 
