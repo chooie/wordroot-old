@@ -237,13 +237,6 @@ img {
   display: inline-block;
 }
 
-.label {
-  display: inline-block;
-  font-weight: bold;
-  font-size: 24px;
-  width: 100%;
-}
-
 .root-part {
   /* nothing */
 }
@@ -265,6 +258,7 @@ img {
 }
 
 .roots {
+  margin-top: 10px;
   font-size: 24px;
 }
 
@@ -274,6 +268,13 @@ img {
 
 .root-info.active {
   display: block;
+}
+
+.root-info .label {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 24px;
+  width: 100%;
 }
 
 .meaning {
@@ -294,7 +295,14 @@ img {
 }
 
 .audio-row .label {
-  text-align: left;
+  font-size: 20px;
+  /*text-align: left;*/
+}
+
+.audio-row .audio-container {
+  display: inline-block;
+  text-align: center;
+  width: 50%;
 }
 
 .audio {
@@ -354,17 +362,17 @@ footer {
     width :600px;
   }
 
-  .root-info div {
+  .root-info .split {
     display: inline-block;
     padding: 0 5px;
     width: 50%;
   }
 
-  .root-info div:nth-child(2n) {
+  .root-info .split:nth-child(2n) {
     text-align: left;
   }
 
-  .root-info div:nth-child(2n + 1) {
+  .root-info .split:nth-child(2n + 1) {
     text-align: right;
   }
 

@@ -46,11 +46,14 @@
     var classes = [ css.container, "audio-row" ];
     var div = util.addElement(container, "div", { classes: classes });
 
+    var audioContainerOptions = { classes: [ "audio-container" ] };
+    var audioContainerSay = util.addElement(div, "div", audioContainerOptions);
     var srcAttrSay = "content/audio/say/" + word + ".mp3";
-    audio.addAudioContent(div, srcAttrSay, "Say Word");
+    audio.addAudioContent(audioContainerSay, srcAttrSay, "Say word");
 
+    var audioContainerTalk = util.addElement(div, "div", audioContainerOptions);
     var srcAttrTalk = "content/audio/talk/" + word + ".mp3";
-    audio.addAudioContent(div, srcAttrTalk, "Story about word");
+    audio.addAudioContent(audioContainerTalk, srcAttrTalk, "Story about word");
     return div;
   }
 

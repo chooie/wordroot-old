@@ -60,7 +60,7 @@
     function addRootInfoElem(container, root) {
       var rootElemOptions = { classes: [ "root-info" ]  };
       var rootElem = util.addElement(container, "div", rootElemOptions);
-      var labelClasses = ["label"];
+      var labelClasses = [ "label", "split" ];
       addWord(rootElem);
       addMeaning(rootElem);
       addLanguage(rootElem);
@@ -68,10 +68,10 @@
 
       function addWord(container) {
         var wordLabel = util.addElement(container, "div",
-          { classes: labelClasses });
+          { classes: labelClasses, });
         wordLabel.innerHTML = "Word";
         var word = util.addElement(container, "div",
-          { classes: [ "root-word" ] });
+          { classes: [ "root-word", "split" ] });
         word.innerHTML = root.word;
       }
 
@@ -80,7 +80,7 @@
           { classes: labelClasses });
         languageLabel.innerHTML = "Language";
         var language = util.addElement(container, "div",
-          { classes: [ "root-language" ] });
+          { classes: [ "root-language", "split" ] });
         language.innerHTML = root.language;
       }
 
@@ -89,7 +89,7 @@
           { classes: labelClasses });
         meaningLabel.innerHTML = "Meaning";
         var meaning = util.addElement(container, "div",
-          { classes: ["root-meaning"] });
+          { classes: [ "root-meaning", "split" ] });
         meaning.innerHTML = root.meaning;
       }
     }
