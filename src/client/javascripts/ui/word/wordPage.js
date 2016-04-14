@@ -48,7 +48,7 @@
 
     var audioContainerOptions = { classes: [ "audio-container" ] };
     var audioContainerSay = util.addElement(div, "div", audioContainerOptions);
-    var srcAttrSay = "content/audio/say/" + word + ".mp3";
+    var srcAttrSay = "/audio/say/" + word;
     audio.addAudioContent(audioContainerSay, srcAttrSay, "Say word");
 
     var audioContainerTalk = util.addElement(div, "div", audioContainerOptions);
