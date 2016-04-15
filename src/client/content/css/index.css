@@ -146,6 +146,16 @@ a:visited {
   background: #ea0c00;
 }
 
+.error-text {
+  position: relative;
+  text-align: center;
+  font-weight: bold;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
 .loading-icon {
   position: relative;
   text-align: center;
